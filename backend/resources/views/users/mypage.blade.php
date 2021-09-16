@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container">
-        <p>
-            {{ $user->name }}
-        </p>
+        <p>{{ $user->name }}</p>
     </div>
 @endsection

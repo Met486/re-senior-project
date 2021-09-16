@@ -17,7 +17,7 @@ class ItemsTableSeeder extends Seeder
     {
         $user = DB::table('users')->first();
 
-        foreach(range(1,3) as $num){
+        foreach(range(1,20) as $num){
             DB::table('items')->insert([
                 'title' => "サンプルアイテム{$num}",
                 'seller_id' => $user->id,

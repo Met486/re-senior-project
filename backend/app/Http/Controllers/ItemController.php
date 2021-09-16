@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\User;
 use App\Http\Requests\SellItem;
 use App\Http\Requests\EditItem;
 use Illuminate\Support\Facades\Auth;
@@ -52,9 +53,10 @@ class ItemController extends Controller
     public function showDetail(int $id)
     {
         $item = Item::find($id);
-
+        $user = User::find($item->seller_id);
+        
         return view('items/detail',[
-            'item' => $item,
+            'item' => $item, 'user_name' => $user->name, 'user_id' => $user->id,
         ]);
     }
 

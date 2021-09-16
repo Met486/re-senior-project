@@ -39,6 +39,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $items->onEachSide(2)->links() }}
         </div>
       </div>
     </div>

@@ -26,6 +26,9 @@
             <label for="title">タイトル</label>
             <p>{{ $item->title }}</p>
 
+            <label for="seller">出品者</label>
+            <p><a href="{{ route('users.user',['id' => $user_id]) }}">{{ $user_name }}</a></p>
+
             <label for="status">状態</label>
             <p>{{ $item->status_label }}</p>
 

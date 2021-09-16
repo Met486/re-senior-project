@@ -12,10 +12,16 @@
 <header>
   <nav class="my-navbar">
     <a class="my-navbar-brand" href="/">Trade App</a>
-
+  
+    <form class="form-inline" action="{{ route('search') }} " method="get">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" name="keyword" id="keyword" value="{{ old('keyword') }} "/>
+      </div>
+        <button type="submit" class="btn btn-primary mb-2">検索</button>
+    </form>
     @if (Route::has('login'))
         @auth
-
+      
           <!-- <a href=" {{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" method="POST">Log out</a> -->
           <form method="POST" action="{{ route('logout') }}">
           @csrf

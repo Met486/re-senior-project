@@ -9,13 +9,22 @@ class SearchController extends Controller
 {
 
 
-    public function index(int $id = 0){
-        if($id==0){
-            $items = Item::all();
+    public function index(Request $requst){
+
+        $keyword = $requst->input('keyword');
+
+        $query = Item::query();
+
+        if(!empty($keyword))
+        {
+            $query->where('title','like','%'.$keyword.'%');
         }
-        else{
- 
-        }
+
+        $items = $query->orderBy('created_at','desc')->paginate(5);
+        
+        // 現状は完全一致のみ
+
+
         return view('search',[
             'items' => $items,
         ]);
