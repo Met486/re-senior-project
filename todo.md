@@ -1,0 +1,2 @@
+ItemController
+seller_idをログインしているユーザで登録する
