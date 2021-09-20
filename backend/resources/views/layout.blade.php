@@ -6,11 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Trade App</title>
   @yield('styles')
+  <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/css/styles.css">
+  
 </head>
 <body>
 <header>
-  <nav class="my-navbar">
+  <nav class="my-navbar fixed-top">
     <a class="my-navbar-brand" href="/">Trade App</a>
   
     <form class="form-inline" action="{{ route('search') }} " method="get">
@@ -21,7 +23,8 @@
     </form>
     @if (Route::has('login'))
         @auth
-      
+          <div>
+          <a href="{{ route('users.mypage.mypage') }}">マイページ</a>
           <!-- <a href=" {{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" method="POST">Log out</a> -->
           <form method="POST" action="{{ route('logout') }}">
           @csrf
@@ -32,13 +35,14 @@
               {{ __('Logout') }}
           </x-jet-responsive-nav-link>
           </form>
+          </div>
           @else
           <div>
-          <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ログイン</a>
+            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ログイン</a>
 
-          @if (Route::has('register'))
-          <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">登録</a>
-          @endif
+            @if (Route::has('register'))
+            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">登録</a>
+            @endif
           </div>
         @endauth
 
@@ -48,6 +52,11 @@
 
 </header>
 <main>
+  @if (session('flash_message'))
+  <div class="flash_message">
+      {{ session('flash_message') }}
+  </div>
+@endif
   @yield('content')
 </main>
 @yield('scripts')

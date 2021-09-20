@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Enums\PaginationType;
 
 class SearchController extends Controller
 {
@@ -20,7 +21,7 @@ class SearchController extends Controller
             $query->where('title','like','%'.$keyword.'%');
         }
 
-        $items = $query->orderBy('created_at','desc')->paginate(5);
+        $items = $query->orderBy('created_at','desc')->paginate(PaginationType::Item20);
         
         // 現状は完全一致のみ
 
@@ -30,4 +31,13 @@ class SearchController extends Controller
         ]);
     }
     
+
+    public function listItem(){
+        $items = Item::all();
+
+        
+        return view('admin',[
+            'items' => $items,
+        ]);
+    }
 }

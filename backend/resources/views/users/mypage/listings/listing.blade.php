@@ -1,6 +1,7 @@
-@extends('layout')
+@extends('users/mypage/mypage')
 
-@section('content')
+@section('content-mypage')
+<p>{{ $mode }}</p>
   <div class="container">
 
   <div class="alubum py-5 bg-light">
@@ -28,5 +29,4 @@
     </div>
   </div>
 {{ $items->onEachSide(2)->links() }}
-
 @endsection
