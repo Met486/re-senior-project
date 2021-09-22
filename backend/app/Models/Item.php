@@ -24,5 +24,16 @@ class Item extends Model
         return self::STATUS[$status]['label'];
     }
 
+
+    public function photos()
+    {
+        return $this->hasMany('App\Models\ItemPhoto');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     use HasFactory;
 }

@@ -4,6 +4,7 @@ services:
     build: ./infra/php
     volumes:
       - ./backend:/work
+      - vendor-store:/work/backend/vendor # add
 
   web:
     image: nginx:1.20-alpine
@@ -15,6 +16,7 @@ services:
     volumes:
       - ./backend:/work
       - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - node_modules-store:/work/backend/node_modules # add
     working_dir: /work
 
   db:
@@ -24,3 +26,5 @@ services:
 
 volumes:
   db-store:
+  vendor-store: # add
+  node_modules-store: # add

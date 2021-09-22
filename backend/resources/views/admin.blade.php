@@ -29,7 +29,7 @@
                 <tr>
                 <th>タイトル</th>
                 <th>状態</th>
-                <th>ISBN</th>=
+                <th>ISBN</th>
                 <th></th>
                 </tr>
                 </thead>

@@ -35,6 +35,11 @@
               </div>
             @endif
 
+            <label for="photos">写真</label>
+            @foreach ($photos as $i)
+              <img src="{{ asset( $i->path )}}">
+            @endforeach
+
             <label for="title">タイトル</label>
             <p>{{ $item->title }}</p>
 
@@ -45,7 +50,12 @@
             <p>{{ $item->status_label }}</p>
 
             <label for="category">カテゴリ</label>
-            <p>{{ $item->category }}</p>
+            {{-- <p>{{ CategoryConsts::Category_List.$item->category }}</p> --}}
+            {{-- @foreach (CategoryConsts::Category_List as $category => $number) --}}
+              {{-- <p>{{ $category }} => {{ $number }}</p> --}}
+              {{-- <option value="{{ $item->category}}">{{ $category }}</option> --}}
+            {{-- @endforeach --}}
+            <p>{{$category_name}}</p>
 
             <label for="sub_category">サブカテゴリ</label>
             <p>{{ $item->sub_category }}</p>

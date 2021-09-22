@@ -59,6 +59,7 @@ Route::get('scss', function(){
 
 Route::get('admin',[SearchController::class,'listItem'])->name('admin');
 
+Route::get('items/getSubCategory/{id}',[ItemController::class,'getSubCategory'])->name('getSubCategory');
 
 
 // TODO 欲しいの処理

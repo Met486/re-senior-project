@@ -17,18 +17,35 @@
               </ul>
             </div>
           @endif
-          <form action="{{ route('items.sell') }}" method="post">
+          <form action="{{ route('items.sell') }}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
                 <label for="title">アイテム名</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" />
-                <label for="category">カテゴリ</label><!-- TODO そのうちプルダウンに変更-->
-                <input type="text" class="form-control" name="category" id="category" value="{{ old('category') }}" />
+                <label for="category">カテゴリ</label>
+                <br>
+                {{-- <input type="text" class="form-control" name="category" id="category" value="{{ old('category') }}" /> --}}
+                <select  name="category" id='category'>
+                  <option value="">選択してください</option>
+                  @foreach ($categories as $category)
+                      {{-- <option value="{{$category->id}}">{{$category->name}}</option> --}}
+                      @if ($category->parent_id == 1)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                      @endif
+                  @endforeach
+                </select>
+                <br>
+                <label for="sub_category">サブカテゴリ</label>
+                <br>
+                <select  name="sub_category" id="sub_category">
+                  <option value="">選択してください</option>
                 <label for="sub_category">サブカテゴリ</label><!-- TODO そのうちプルダウンに変更-->
-                <input type="text" class="form-control" name="sub_category" id="sub_category" value="{{ old('sub_category') }}" />
+                </select>
+                <br>
                 <label for="isbn_13">ISBN-13</label>
-                <input type="text" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" />
-                
+                <input type="tel" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" maxlength="13"/>
+                <label for="photo">画像ファイル（複数可）:</label>
+                <input type="file" class="form-control" name="files[][photo]" id="files[][photo]" multiple>
               </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">送信</button>
@@ -39,4 +56,6 @@
       </div>
     </div>
   </div>
+  <script src="{{ mix('js/sell.js') }}"></script>
+
 @endsection

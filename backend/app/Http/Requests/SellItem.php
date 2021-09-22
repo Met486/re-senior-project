@@ -29,6 +29,7 @@ class SellItem extends FormRequest
             'category' => 'required',
             'sub_category' => 'required',
             'isbn_13' => 'required|max:13|min:13',
+            'files.*.photo' => 'image|mimes:jpeg,bmp,png',
             //
         ];
     }

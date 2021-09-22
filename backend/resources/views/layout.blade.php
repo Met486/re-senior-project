@@ -25,6 +25,8 @@
         @auth
           <div>
           <a href="{{ route('users.mypage.mypage') }}">マイページ</a>
+          <a href="{{ route('items.sell') }}">出品</a>
+
           <!-- <a href=" {{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" method="POST">Log out</a> -->
           <form method="POST" action="{{ route('logout') }}">
           @csrf

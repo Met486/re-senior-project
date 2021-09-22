@@ -9,6 +9,8 @@ use App\Http\Requests\SellItem;
 use App\Http\Requests\EditItem;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\ItemType;
+use App\Models\ItemPhoto;
+use App\Models\Category;
 
 
 class ItemController extends Controller
@@ -25,9 +27,12 @@ class ItemController extends Controller
 
     public function showSellForm()
     {
-        return view('/items/sell');
-    }
+        $categories = Category::where('parent_id',1)->get();
+        return view('/items/sell',['categories' => $categories]);
 
+
+    }
+    
     public function sell(SellItem $request)
     {
         $item = new Item();
@@ -35,10 +40,17 @@ class ItemController extends Controller
         $item->category = $request->category;
         $item->sub_category = $request->sub_category;
         $item->isbn_13 = $request->isbn_13;
-        // $item->seller_id = 1; //TODO 暫定 ログインしているユーザに変更する
         $item->seller_id = Auth::id(); // ここでログイン情報を取れるらしい
 
         $item->save();
+
+        foreach ($request->file('files') as $index=> $e) {
+            $ext = $e['photo']->guessExtension();
+            $filename = "{$request->jan}_{$index}.{$ext}";
+            $path = $e['photo']->storeAs('item/photos', $filename);
+            // photosメソッドにより、商品に紐付けられた画像を保存する
+            $item->photos()->create(['path'=> $path]);
+        }
 
         return redirect()->route('search'); // todo searchは暫定 追々登録完了ページに送る
     }
@@ -56,9 +68,11 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $user = User::find($item->seller_id);
+        $photos = ItemPhoto::where('item_id', $id)->get();
+        $category = Category::find($item->category);
         
         return view('items/detail',[
-            'item' => $item, 'user_name' => $user->name, 'user_id' => $user->id,
+            'item' => $item, 'user_name' => $user->name, 'user_id' => $user->id, 'photos' =>$photos, 'category_name' =>$category->name,
         ]);
     }
 
@@ -131,5 +145,11 @@ class ItemController extends Controller
 
         return back()->with('success','取引処理を行いました');
     
+    }
+
+    public function getSubCategory($id)
+    {
+        $sub_categories = Category::where('parent_id',$id)->get();
+        return $sub_categories;
     }
 }
