@@ -47,9 +47,10 @@ class ItemController extends Controller
         foreach ($request->file('files') as $index=> $e) {
             $ext = $e['photo']->guessExtension();
             $filename = "{$request->jan}_{$index}.{$ext}";
-            $path = $e['photo']->storeAs('item/photos', $filename);
+            // $path = $e['photo']->storeAs('item/photos', $filename);
+            $path = $e['photo']->storeAs("item/photos/$item->id", $filename);
             // photosメソッドにより、商品に紐付けられた画像を保存する
-            $item->photos()->create(['path'=> $path]);
+            $item->photos()->create(['path'=> $path, 'index' => $index]);
         }
 
         return redirect()->route('search'); // todo searchは暫定 追々登録完了ページに送る
@@ -58,6 +59,7 @@ class ItemController extends Controller
     public function showEditForm(int $id)
     {
         $item = Item::find($id);
+        $categories = Category::where('parent_id',1)->get();
 
         return view('items/edit',[
             'item' => $item,
@@ -69,7 +71,10 @@ class ItemController extends Controller
         $item = Item::find($id);
         $user = User::find($item->seller_id);
         $photos = ItemPhoto::where('item_id', $id)->get();
+
         $category = Category::find($item->category);
+
+        // $test_item = Item::find($id)->leftJoin('item_photos','items.id','=','item_photos.item_id')->
         
         return view('items/detail',[
             'item' => $item, 'user_name' => $user->name, 'user_id' => $user->id, 'photos' =>$photos, 'category_name' =>$category->name,
@@ -100,11 +105,11 @@ class ItemController extends Controller
 
         if(auth()->user()->id != $item->seller_id)
         {
-            return redirect(route('list'))->with('error','許可されていない操作です');
+            return redirect(route('search'))->with('error','許可されていない操作です');
         }
 
         $item->delete();
-        return redirect(route('list'))->with('success','アイテムを削除しました。');
+        return redirect(route('search'))->with('success','アイテムを削除しました。');
     }
 
     public function buy($id)

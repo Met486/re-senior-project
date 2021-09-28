@@ -29,9 +29,9 @@
                   <option value="">選択してください</option>
                   @foreach ($categories as $category)
                       {{-- <option value="{{$category->id}}">{{$category->name}}</option> --}}
-                      @if ($category->parent_id == 1)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
-                      @endif
+
+                      <option value="{{$category->id}}">{{$category->name}}</option>
+
                   @endforeach
                 </select>
                 <br>
@@ -56,6 +56,9 @@
       </div>
     </div>
   </div>
-  <script src="{{ mix('js/sell.js') }}"></script>
 
+@endsection
+
+@section('scripts')
+  <script src="{{ mix('js/sell.js') }}"></script>  
 @endsection

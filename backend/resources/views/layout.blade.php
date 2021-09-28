@@ -7,8 +7,8 @@
   <title>Trade App</title>
   @yield('styles')
   <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/custom.css">
   <link rel="stylesheet" href="/css/styles.css">
-  
 </head>
 <body>
 <header>

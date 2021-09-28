@@ -9,7 +9,7 @@ class ItemPhoto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['item_id' , 'path'];
+    protected $fillable = ['item_id' , 'path' , 'index'];
 
     public function item()
     {

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Item;
 use App\Enums\PaginationType;
 use App\Enums\ItemType;
+use App\Models\ItemPhoto;
 
 class UserController extends Controller
 {
@@ -36,7 +37,11 @@ class UserController extends Controller
     {
         $user_id = Auth::id();
         $user = User::find($user_id);
-        $items = Item::where('seller_id',$user->id)->where('status',ItemType::selling )->paginate(PaginationType::Item10);
+        $query = Item::query();
+        $query->where('seller_id',$user->id)->where('status',ItemType::selling )->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
+        $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item20);
+
+        // $items = Item::where('seller_id',$user->id)->where('status',ItemType::selling )->paginate(PaginationType::Item10);
 
         return view('users/mypage/listings/listing',[
             'user' => $user,
@@ -49,7 +54,12 @@ class UserController extends Controller
     {
         $user_id = Auth::id();
         $user = User::find($user_id);
-        $items = Item::where('seller_id',$user->id)->where('status',ItemType::in_progress )->paginate(PaginationType::Item10);
+        $query = Item::query();
+        $query->where('seller_id',$user->id)->where('status',ItemType::in_progress )->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
+        $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item20);
+
+
+        // $items = Item::where('seller_id',$user->id)->where('status',ItemType::in_progress )->paginate(PaginationType::Item10);
 
         return view('users/mypage/listings/listing',[
             'user' => $user,
@@ -62,7 +72,12 @@ class UserController extends Controller
     {
         $user_id = Auth::id();
         $user = User::find($user_id);
-        $items = Item::where('seller_id',$user->id)->where('status',ItemType::completed )->paginate(PaginationType::Item10);
+
+        $query = Item::query();
+        $query->where('seller_id',$user->id)->where('status',ItemType::completed )->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
+        $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item20);
+
+        // $items = Item::where('seller_id',$user->id)->where('status',ItemType::completed )->paginate(PaginationType::Item10);
 
         return view('users/mypage/listings/listing',[
             'user' => $user,
@@ -71,4 +86,19 @@ class UserController extends Controller
         ]);
     }
 
+    public function showBuyedList()
+    {
+        $user_id = Auth::id();
+        $user = User::find($user_id);
+
+        $query = Item::query();
+        $query->where('buyer_id',$user->id)->where('status',ItemType::completed )->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
+        $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item20);
+
+        return view('users/mypage/listings/listing',[
+            'user' => $user,
+            'items' => $items,
+            'mode' => "購入済み",
+        ]);
+    }
 }

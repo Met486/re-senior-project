@@ -182,3 +182,28 @@ n件表示したら次のページになるように生成するよっていう�
 `config/filesystems.php`
 
 保存場所の変更
+
+
+### これを実行したいんじゃい
+`select items.*,GROUP_CONCAT(item_photos.path) from items left join item_photos on items.id = item_photos.item_id group by items.id;`
+
+結局ItemPhotoのモデルを書き換えて画像番号(index)を追加して簡略化
+
+### 413エラー
+httpsのせいかもしれんね
+
+443番ポートに追加する必要があったりするらしい
+https://blog.capilano-fw.com/?p=256
+
+### なぜかRouteが見つからんが？
+`Route::put('/items/{id}/', [ItemController::class,'buy'] )->name('items.buy');`
+
+`Route::put('/items/{id}/', [ItemController::class,'trade'] )->name('items.trade');`
+
+これが連続して並ぶと区別がつかないらしい
+
+`Route::put('/items/{id}/buy', [ItemController::class,'buy'] )->name('items.buy');`
+
+`Route::put('/items/{id}/trade', [ItemController::class,'trade'] )->name('items.trade');`
+
+こうしてやるといいよ

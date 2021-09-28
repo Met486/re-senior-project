@@ -12,11 +12,6 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-
-// ↓New
-
-// Route::get('/', 'HomeController@index')->name('home');
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
@@ -34,15 +29,16 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/items/sell',[ItemController::class,'showSellForm'])->name('items.sell');
     Route::post('/items/sell',[ItemController::class,'sell']);
-    Route::delete('items/{id}', [ItemController::class,'delete'] )->name('items.destroy');
-    Route::put('items/{id}', [ItemController::class,'buy'] )->name('items.buy');
-    Route::put('items/{id}', [ItemController::class,'trade'] )->name('items.trade');
+    Route::delete('/items/{id}', [ItemController::class,'delete'] )->name('items.destroy');
+    Route::put('/items/{id}/buy', [ItemController::class,'buy'] )->name('items.buy');
+    Route::put('/items/{id}/trade', [ItemController::class,'trade'] )->name('items.trade');
 
     // 以下マイページ機能
     Route::get('/mypage',[UserController::class,'showMypage'])->name('users.mypage.mypage');
     Route::get('/mypage/listings/listing',[UserController::class,'showSellingList'])->name('users.mypage.listings.listing');
     Route::get('/mypage/listings/in_progress',[UserController::class,'showInProgressList'])->name('users.mypage.listings.in_progress');
     Route::get('/mypage/listings/completed',[UserController::class,'showCompletedList'])->name('users.mypage.listings.completed');
+    Route::get('/mypage/listings/buyed',[UserController::class,'showCompletedList'])->name('users.mypage.listings.completed');
 
 });
 
