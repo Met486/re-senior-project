@@ -17,7 +17,7 @@
   
     <form class="form-inline" action="{{ route('search') }} " method="get">
       <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" name="keyword" id="keyword" value="{{ old('keyword') }} "/>
+        <input type="text" class="form-control" name="keyword" id="keyword" value="@if (isset ($keyword)) {{$keyword}} @endif "/>
       </div>
         <button type="submit" class="btn btn-primary mb-2">検索</button>
     </form>

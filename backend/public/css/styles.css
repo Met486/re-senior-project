@@ -149,3 +149,12 @@ a.my-navbar-item:hover {
 a[data-fancybox] img {
   cursor: zoom-in;
 }
+
+.card {
+  width: 200px;
+}
+
+.card-title {
+  text-align: center;
+  margin-top: 0.5rem;
+}
