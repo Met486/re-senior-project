@@ -2,9 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/sell.js": "/js/sell.js",
     "/js/detail.js": "/js/detail.js",
+    "/js/search.js": "/js/search.js",
     "/css/styles.css": "/css/styles.css",
-    "/css/app.css": "/css/app.css",
-    "/assets/js/slick.min.js": "/assets/js/slick.min.js",
-    "/assets/css/slick.css": "/assets/css/slick.css",
-    "/assets/css/slick-theme.css": "/assets/css/slick-theme.css"
+    "/css/app.css": "/css/app.css"
 }
