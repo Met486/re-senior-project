@@ -27,7 +27,7 @@ class SellItem extends FormRequest
         return [
             'title' => 'required|max:20',
             'category' => 'required',
-            'sub_category' => 'required',
+            // 'sub_category' => 'required',
             'isbn_13' => 'required|max:13|min:13',
             'files.*.photo' => 'image|mimes:jpeg,bmp,png',
             //

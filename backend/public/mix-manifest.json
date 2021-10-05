@@ -3,6 +3,7 @@
     "/js/sell.js": "/js/sell.js",
     "/js/detail.js": "/js/detail.js",
     "/js/search.js": "/js/search.js",
+    "/js/layout.js": "/js/layout.js",
     "/css/styles.css": "/css/styles.css",
     "/css/app.css": "/css/app.css"
 }

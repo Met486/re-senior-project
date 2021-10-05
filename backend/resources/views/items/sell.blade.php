@@ -22,10 +22,10 @@
               <div class="form-group">
                 <label for="title">アイテム名</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" />
-                <label for="category">カテゴリ</label>
+                <label for="d1_category">カテゴリ1</label>
                 <br>
                 {{-- <input type="text" class="form-control" name="category" id="category" value="{{ old('category') }}" /> --}}
-                <select  name="category" id='category'>
+                <select  name="d1_category" id='d1_category'>
                   <option value="">選択してください</option>
                   @foreach ($categories as $category)
                       {{-- <option value="{{$category->id}}">{{$category->name}}</option> --}}
@@ -35,11 +35,16 @@
                   @endforeach
                 </select>
                 <br>
-                <label for="sub_category">サブカテゴリ</label>
+                <label for="d2_category">カテゴリ2</label>
                 <br>
-                <select  name="sub_category" id="sub_category">
+                <select  name="d2_category" id="d2_category">
                   <option value="">選択してください</option>
-                <label for="sub_category">サブカテゴリ</label><!-- TODO そのうちプルダウンに変更-->
+                </select>
+                <br>
+                <label for="category">カテゴリ3</label>
+                <br>
+                <select  name="category" id="category">
+                  <option value="">選択してください</option>
                 </select>
                 <br>
                 <label for="isbn_13">ISBN-13</label>

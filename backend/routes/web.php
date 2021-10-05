@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/mypage/listings/listing',[UserController::class,'showSellingList'])->name('users.mypage.listings.listing');
     Route::get('/mypage/listings/in_progress',[UserController::class,'showInProgressList'])->name('users.mypage.listings.in_progress');
     Route::get('/mypage/listings/completed',[UserController::class,'showCompletedList'])->name('users.mypage.listings.completed');
-    Route::get('/mypage/listings/buyed',[UserController::class,'showCompletedList'])->name('users.mypage.listings.completed');
+    Route::get('/mypage/listings/buyed',[UserController::class,'showCompletedList'])->name('users.mypage.listings.buyed');
 
 });
 

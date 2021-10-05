@@ -38,7 +38,7 @@ class ItemController extends Controller
         $item = new Item();
         $item->title = $request->title;
         $item->category = $request->category;
-        $item->sub_category = $request->sub_category;
+        // $item->sub_category = $request->sub_category;
         $item->isbn_13 = $request->isbn_13;
         $item->seller_id = Auth::id(); // ここでログイン情報を取れるらしい
 
@@ -88,7 +88,7 @@ class ItemController extends Controller
         $item->title = $request->title;
         $item->status = $request->status;
         $item->category = $request->category;
-        $item->sub_category = $request->sub_category;
+        // $item->sub_category = $request->sub_category;
         $item->isbn_13 = $request->isbn_13;
         // $item->seller_id = 1; //TODO 暫定 ログインしているユーザに変更する
         $item->seller_id = Auth::id();
@@ -100,7 +100,7 @@ class ItemController extends Controller
 
     public function delete($id)
     {
-        $item = Item::find($id);
+        $item = Item::find('id',$id);
 
 
         if(auth()->user()->id != $item->seller_id)

@@ -22,10 +22,10 @@ class ItemsTableSeeder extends Seeder
                 'title' => "サンプルアイテム{$num}",
                 'seller_id' => $user->id,
                 'buyer_id' => null,
-                'category' => 2, // 暫定値 コミックに該当
-                'sub_category' => $num,
+                'category' => ($num > 5) ? 4 : 11, // 暫定値 コミックとビジネスに該当
+                // 'sub_category' => $num,
                 'isbn_13' => 1234567890123,
-                'status' => $num,
+                'status' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

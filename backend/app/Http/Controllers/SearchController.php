@@ -8,31 +8,68 @@ use App\Enums\PaginationType;
 use App\Models\Category;
 use App\Models\ItemPhoto;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Kalnoy\Nestedset\NestedSet;
+
 
 class SearchController extends Controller
 {
 
 
-    public function index(Request $requst){
+    public function index(Request $request){
 
-        $keyword = $requst->input('keyword');
-
+        $keyword = $request->input('keyword');
+        $category = $request->input('category');
+        $category2 = $request->input('category2');
+        $category3 = $request->input('category3');
         $query = Item::query();
+
+        $categories = Category::all();
 
         if(!empty($keyword))
         {
-            $query->where('title','like','%'.$keyword.'%')->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
-
+            // todo いじったよ
+            $query->where('title','like','%'.$keyword.'%')->join('categories','items.category', '=', 'categories.id')->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
+            // $query->where('title','like','%'.$keyword.'%')->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
         }
         else
         {
-            $query->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
+            $query->join('categories','items.category', '=', 'categories.id')->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
+            // $query->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
         }
+
+
+        $parent;
+        $array;
+
+        if(!empty($category)){
+            if(!empty($category2)){
+                if(!empty($category3)){
+                    $parent = $categories->find($category3);
+                }
+                else{
+                    $parent = $categories->find($category2);
+                }
+            }
+            else{
+                $parent = $categories->find($category);
+            }
+        
+            // $array = $parent->descendants()->get()->map(function($data){
+            //     return $data->id;
+            // });
+
+            if(!empty($category3)){$array = [$category3];}
+            else {$array = $parent->descendants()->pluck('id');}
+            Log::debug($array);
+            $query->whereIn('category',$array)->get();
+
+        }       
         
         // dd($query->toSql(),$query->getBindings());
 
         // カテゴリ検索は今後
-        $categories = Category::where('parent_id',1)->get();
+        // $categories = Category::where('parent_id',1)->get();
 
 
         $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item20);
@@ -40,7 +77,7 @@ class SearchController extends Controller
         
 
         return view('search',[
-            'items' => $items,'categories' => $categories, 'keyword' => $keyword,
+            'items' => $items,'categories' => $categories, 'keyword' => $keyword, 'k1_category' => $category, 'k2_category' => $category2, 'k3_category' => $category3,
         ]);
     }
     
