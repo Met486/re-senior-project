@@ -22,30 +22,43 @@
               <div class="form-group">
                 <label for="title">アイテム名</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" />
-                <label for="category">カテゴリ</label>
-                <br>
-                {{-- <input type="text" class="form-control" name="category" id="category" value="{{ old('category') }}" /> --}}
-                <select  name="category" id='category'>
-                  <option value="">選択してください</option>
-                  @foreach ($categories as $category)
-                      {{-- <option value="{{$category->id}}">{{$category->name}}</option> --}}
-                      @if ($category->parent_id == 1)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
-                      @endif
-                  @endforeach
-                </select>
-                <br>
-                <label for="sub_category">サブカテゴリ</label>
-                <br>
-                <select  name="sub_category" id="sub_category">
-                  <option value="">選択してください</option>
-                <label for="sub_category">サブカテゴリ</label><!-- TODO そのうちプルダウンに変更-->
-                </select>
-                <br>
+                <div id="d1_category">
+                  <label for="s1_category">カテゴリ1</label>
+                  <br>
+                  {{-- <input type="text" class="form-control" name="category" id="category" value="{{ old('category') }}" /> --}}
+                  <select  name="s1_category" id='s1_category'>
+                    <option value="">選択してください</option>
+                    @foreach ($categories as $category)
+                    {{-- <option value="{{$category->id}}">{{$category->name}}</option> --}}
+                    
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    
+                    @endforeach
+                  </select>
+                  <br>
+                </div>
+                <div id="d2_category">
+                  <label for="s2_category">カテゴリ2</label>
+                  <br>
+                  <select  name="s2_category" id="s2_category">
+                    <option value="">選択してください</option>
+                  </select>
+                  <br>
+                </div>
+                <div id="d3_category">
+                  <label for="category">カテゴリ3</label>
+                  <br>
+                  <select  name="category" id="category">
+                    <option value="">選択してください</option>
+                  </select>
+                </div>
+                  <br>
                 <label for="isbn_13">ISBN-13</label>
                 <input type="tel" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" maxlength="13"/>
                 <label for="photo">画像ファイル（複数可）:</label>
-                <input type="file" class="form-control" name="files[][photo]" id="files[][photo]" multiple>
+                <input type="file" required class="form-control" name="files[][photo]" id="files[][photo]" multiple>
+                <label for="comment">アズカリの約束メモ記入欄(300文字まで）</label>
+                <textarea class="form-control" name="comment" if="comment" maxlength="300" cols="50" rows="10" value={{ old('comment')}}></textarea>
               </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">送信</button>
@@ -56,6 +69,9 @@
       </div>
     </div>
   </div>
-  <script src="{{ mix('js/sell.js') }}"></script>
 
+@endsection
+
+@section('scripts')
+  <script src="{{ mix('js/sell.js') }}"></script>  
 @endsection

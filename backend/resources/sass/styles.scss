@@ -1,0 +1,163 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css');
+
+body {
+  background-color: #f4f7f8;
+  padding-top: 6em;
+}
+
+.navbar {
+  margin: 2rem 0 2.5rem 0;
+}
+
+.my-navbar {
+  align-items: center;
+  background: #333;
+  display: flex;
+  height: 6rem;
+  justify-content: space-between;
+  padding: 0 2%;
+  margin-bottom: 3rem;
+}
+
+.my-navbar-brand {
+  font-size: 18px;
+}
+
+.my-navbar-brand,
+.my-navbar-item {
+  color: #8c8c8c;
+}
+
+.my-navbar-brand:hover,
+a.my-navbar-item:hover {
+  color: #ffffff;
+}
+
+
+.table td:nth-child(2),
+.table td:nth-child(3),
+.table td:nth-child(4) {
+  white-space: nowrap;
+  width: 1px;
+}
+
+.form-control[disabled],
+.form-control[readonly] {
+  background-color: #fff;
+}
+
+.s-image{
+  height: 225px;
+  object-fit: contain;  
+}
+
+.c-image{
+  height: 300px;
+  object-fit: contain;  
+}
+
+.c-div{
+  background-color: #666;
+}
+
+// スライダー
+.slider {/*横幅94%で左右に余白を持たせて中央寄せ*/
+  width:94%;
+   margin:0 auto;
+}
+
+.slider img {
+   width:100%;/*スライダー内の画像を横幅100%に*/
+   height:auto;
+}
+
+/*slickのJSで書かれるタグ内、スライド左右の余白調整*/
+
+.slider .slick-slide {
+   margin:0 10px;
+}
+
+/*矢印の設定*/
+
+/*戻る、次へ矢印の位置*/
+.slick-prev, 
+.slick-next {
+   position: absolute;/*絶対配置にする*/
+   top: 42%;
+   cursor: pointer;/*マウスカーソルを指マークに*/
+   outline: none;/*クリックをしたら出てくる枠線を消す*/
+   border-top: 2px solid #666;/*矢印の色*/
+   border-right: 2px solid #666;/*矢印の色*/
+   height: 15px;
+   width: 15px;
+}
+
+.slick-prev {/*戻る矢印の位置と形状*/
+   left: -1.5%;
+   transform: rotate(-135deg);
+}
+
+.slick-next {/*次へ矢印の位置と形状*/
+   right: -1.5%;
+   transform: rotate(45deg);
+}
+
+/*ドットナビゲーションの設定*/
+
+.slick-dots {
+   text-align:center;
+ margin:20px 0 0 0;
+}
+
+.slick-dots li {
+   display:inline-block;
+ margin:0 5px;
+}
+
+.slick-dots button {
+   color: transparent;
+   outline: none;
+   width:8px;/*ドットボタンのサイズ*/
+   height:8px;/*ドットボタンのサイズ*/
+   display:block;
+   border-radius:50%;
+   background:#ccc;/*ドットボタンの色*/
+}
+
+.slick-dots .slick-active button{
+   background:#333;/*ドットボタンの現在地表示の色*/
+}
+
+.slider img {
+  width: 100%;
+  // height: 50vw;
+  height:250px;
+  object-fit: contain;
+}
+
+
+a[data-fancybox] img {
+  cursor: zoom-in;
+}
+
+.card{
+  width: 200px;
+}
+
+.card-title {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.modal-content{
+  background-color: unset;
+}
+
+.d-center{
+  justify-content: start;
+}
+
+:root{
+  --bs-danger-rgb: 255, 99, 71;
+}

@@ -16,7 +16,10 @@
 						<a class="nav-link" href="{{route('users.mypage.listings.in_progress')}}">取引中</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{route('users.mypage.listings.listing')}}">売却済</a>
+						<a class="nav-link" href="{{route('users.mypage.listings.completed')}}">売却済</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{route('users.mypage.listings.buyed')}}">購入済</a>
 					</li>
 				</ul>
 

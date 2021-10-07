@@ -16,10 +16,11 @@ class CreateItemPhotosTable extends Migration
         Schema::create('item_photos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('item_id')->unsigned();
+            $table->integer('index')->unsigned();
             $table->string('path');
             $table->timestamps();
 
-            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
 
         });
     }
