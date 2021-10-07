@@ -41,7 +41,13 @@ class ItemController extends Controller
         // $item->sub_category = $request->sub_category;
         $item->isbn_13 = $request->isbn_13;
         $item->seller_id = Auth::id(); // ここでログイン情報を取れるらしい
+        $item->comment = $request->comment;
 
+        preg_match_all('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+)', $item->comment, $array);
+        
+    
+        $item->url = implode($array[0]);
+        // dd($word_list);
         $item->save();
 
         foreach ($request->file('files') as $index=> $e) {
@@ -100,12 +106,12 @@ class ItemController extends Controller
 
     public function delete($id)
     {
-        $item = Item::find('id',$id);
+        $item = Item::find($id);
 
 
         if(auth()->user()->id != $item->seller_id)
         {
-            return redirect(route('search'))->with('error','許可されていない操作です');
+            return back()->with('error','許可されていない操作です');
         }
 
         $item->delete();

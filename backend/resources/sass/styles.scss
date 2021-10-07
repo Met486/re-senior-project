@@ -154,3 +154,10 @@ a[data-fancybox] img {
   background-color: unset;
 }
 
+.d-center{
+  justify-content: start;
+}
+
+:root{
+  --bs-danger-rgb: 255, 99, 71;
+}

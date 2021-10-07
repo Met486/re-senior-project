@@ -1,9 +1,16 @@
-const d1Category = document.getElementById('d1_category');
-const d2Category = document.getElementById('d2_category');
+const { isEmpty } = require("lodash");
+
+const s1Category = document.getElementById('s1_category');
+const s2Category = document.getElementById('s2_category');
 const selectCategory = document.getElementById('category');
+const d1Category = document.getElementById("d1_category");
+const d2Category = document.getElementById("d2_category");
+const d3Category = document.getElementById("d3_category");
+// s2Category.style.display = "none";
+// selectCategory.style.display = "none";
 
 d2Category.style.display = "none";
-selectCategory.style.display = "none";
+d3Category.style.display = "none";
 
 // $.ajax()を呼び出す際の options の値をあらかじめ設定
 $.ajaxSetup({
@@ -14,15 +21,17 @@ $.ajaxSetup({
 var testArr = $('<option>', { text : "選択してください"});
 
 
-d1Category.onchange = function(){
+s1Category.onchange = function(){
     $.ajax({
         url: "getSubCategory/" + this.value,
         dataType: "json",
     })
     .done((res) => {
         console.log("success");
+        // s2Category.style.display = "block";
         d2Category.style.display = "block";
-        $('#d2_category option').remove();
+
+        $('#s2_category option').remove();
 
         // test
         // $.each(res, function (index,data){
@@ -31,13 +40,13 @@ d1Category.onchange = function(){
             
         // });
         
-        $('#d2_category').append(testArr);
+        $('#s2_category').append(testArr);
 
         var arr = $.map(res, function(data){
             $option = $('<option>', { value: data.id, text:data.name});
             return $option;
         });
-        $('#d2_category').append(arr);
+        $('#s2_category').append(arr);
 
 
         // $.each(res, function (index, value){
@@ -50,23 +59,16 @@ d1Category.onchange = function(){
 }
 
 
-d2Category.onchange = function(){
+s2Category.onchange = function(){
     $.ajax({
         url: "getSubCategory/" + this.value,
         dataType: "json",
     })
     .done((res) => {
         console.log("success");
-        selectCategory.style.display = "block";
+        d3Category.style.display = "block";
+
         $('#category option').remove();
-
-        // test
-        // $.each(res, function (index,data){
-        //     // $('#sub_category').append($('<option>').text(data.name).attr('value',.id));
-        //     $('#sub_category').append($('<option>').text(data.name).attr({ value: data.id}));
-            
-        // });
-
         $('#category').append(testArr);
 
         var arr = $.map(res, function(data){
@@ -75,10 +77,6 @@ d2Category.onchange = function(){
         });
         $('#category').append(arr);
 
-
-        // $.each(res, function (index, value){
-        //  console.log(value.id + ":" + value.name);
-        // });
     })
     .fail((error) => {
         console.log(error.statusText);

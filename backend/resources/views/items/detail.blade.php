@@ -6,11 +6,6 @@
 @endsection
 
 @section('content')
-    @if (session('error'))
-    <div class="error">
-        {{ session('error') }}
-    </div>
-    @endif
     @if (session('success'))
     <div class="success">
         {{ session('success') }}
@@ -75,23 +70,26 @@
               {{-- <option value="{{ $item->category}}">{{ $category }}</option> --}}
             {{-- @endforeach --}}
             <p>{{$category_name}}</p>
-
-            <label for="sub_category">サブカテゴリ</label>
-          <p>{{ $item->sub_category }}</p>
-
             <label for="isbn_13">ISBN-13</label>
             <p>{{ $item->isbn_13 }}</p>
-            <div class="text-right">
-                <a href="#" class="btn btn-primary">ほしい！</a>
-            </div>
+            
+
+            @if (Auth::id() == $item->buyer_id && $item->status == 3)
+              <label for="comment">約束メモ</label>
+              <textarea name="comment" readonly cols="50" rows="10">{{ $item->comment }}</textarea>
+              <br>
+              <label for="url">URL</label>
+              <a href="{{$item->url}}">取引メモはこちらからアクセスしてください</a>
+   
+            @endif
 
             @if(Auth::check())
-              @if (Auth::id())
+              @if (Auth::id() == $item->seller_id)
                 @if ($item->status == 3)
                   <form action="{{ route('items.trade', $item->id) }}" method="post" class="float-right">
                     @csrf
                     @method('put')
-                  <input type="submit" value="取引！" class="btn btn-danger" onclick='return confirm("販売しますか？");'>
+                  <input type="submit" value="取引！" class="btn btn-primary" onclick='return confirm("販売しますか？");'>
                   </form>
                 @endif
                 <form action="{{ route('items.destroy', $item->id) }}" method="post" class="float-right">
@@ -100,11 +98,15 @@
                 <input type="submit" value="削除" class="btn btn-danger" onclick='return confirm("削除しますか？");'>
                 </form>
               @else
-                <form action="{{ route('items.buy', $item->id) }}" method="post" class="float-right">
-                  @method('put')
-                  @csrf
-                <input type="submit" value="購入" class="btn btn-danger" onclick='return confirm("購入しますか？");'>
-                </form>
+                @if ($item->status == 1)
+                  <form action="{{ route('items.buy', $item->id) }}" method="post" class="float-right">
+                    @method('put')
+                    @csrf
+                  <input type="submit" value="購入" class="btn btn-primary" onclick='return confirm("購入しますか？");'>
+                  </form>
+                @elseif($item->status == 3)
+                  <p>この商品は取引中です</p>
+                @endif
               @endif
             @endif
 

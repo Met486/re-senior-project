@@ -26,6 +26,8 @@ class ItemsTableSeeder extends Seeder
                 // 'sub_category' => $num,
                 'isbn_13' => 1234567890123,
                 'status' => 1,
+                'comment' => "テストコメント URL例:https://azkari.jp/share/t/{$num}",
+                'url' => "https://azkari.jp/share/t/{$num}",
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

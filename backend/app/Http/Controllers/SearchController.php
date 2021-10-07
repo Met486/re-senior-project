@@ -54,10 +54,6 @@ class SearchController extends Controller
             else{
                 $parent = $categories->find($category);
             }
-        
-            // $array = $parent->descendants()->get()->map(function($data){
-            //     return $data->id;
-            // });
 
             if(!empty($category3)){$array = [$category3];}
             else {$array = $parent->descendants()->pluck('id');}
@@ -67,10 +63,6 @@ class SearchController extends Controller
         }       
         
         // dd($query->toSql(),$query->getBindings());
-
-        // カテゴリ検索は今後
-        // $categories = Category::where('parent_id',1)->get();
-
 
         $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item20);
         // 現状は完全一致のみ
