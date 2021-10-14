@@ -19,9 +19,11 @@ class CreateItemsTable extends Migration
             $table->unsignedBigInteger('seller_id');
             $table->unsignedBigInteger('buyer_id')->nullable();
             $table->integer('category')->unsigned();
-            $table->integer('sub_category')->unsigned();
+            // $table->integer('sub_category')->unsigned();
             $table->string('isbn_13',13);//ハイフン抜き
             $table->integer('status')->default(1);
+            $table->string('comment',300);
+            $table->string('url');
             $table->timestamps();
 
             $table->foreign('seller_id')->references('id')->on('users');
