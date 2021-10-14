@@ -22,8 +22,8 @@ class CreateItemsTable extends Migration
             // $table->integer('sub_category')->unsigned();
             $table->string('isbn_13',13);//ハイフン抜き
             $table->integer('status')->default(1);
-            $table->string('comment',300);
-            $table->string('url');
+            $table->string('comment',300)->default("");
+            $table->string('url')->default("");
             $table->timestamps();
 
             $table->foreign('seller_id')->references('id')->on('users');
