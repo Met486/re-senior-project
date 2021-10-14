@@ -53,6 +53,13 @@
             </div>
             <br>
             
+            <div>
+              @if (isset($evaluation))
+                <label for="evaluation">評価</label>
+                <p>{{ $evaluation->status_label}}</p>
+                  
+              @endif
+            </div>
 
             <label for="title">タイトル</label>
             <p>{{ $item->title }}</p>
@@ -73,38 +80,65 @@
             <label for="isbn_13">ISBN-13</label>
             <p>{{ $item->isbn_13 }}</p>
             
-
-            @if (Auth::id() == $item->buyer_id && $item->status == 3)
-              <label for="comment">約束メモ</label>
-              <textarea name="comment" readonly cols="50" rows="10">{{ $item->comment }}</textarea>
-              <br>
-              <label for="url">URL</label>
-              <a href="{{$item->url}}">取引メモはこちらからアクセスしてください</a>
-   
-            @endif
-
+            
             @if(Auth::check())
+              @if (Auth::id() == $item->buyer_id)
+                @if($item->status == ItemType::with_comment)
+                  <label for="comment">約束メモ</label>
+                  <textarea name="comment" readonly cols="50" rows="10">{{ $item->comment }}</textarea>
+                  <br>
+                  <label for="url">URL</label>
+                  <a href="{{$item->url}}">取引メモはこちらからアクセスしてください</a> 
+                @elseif($item->status == ItemType::in_progress)
+                  <div>
+                    <p>出品者の約束メモをお待ち下さい</p>
+                  </div>
+                @elseif($item->status == ItemType::sending)
+                  <div>
+                    <p>到着次第、こちらから評価をお願いします</p>
+                    <input type="submit" value="評価" class="btn btn-primary" a data-bs-toggle="modal" data-bs-target="#evaluationModal">
+                  </div>
+                @endif
+              @endif
+
               @if (Auth::id() == $item->seller_id)
-                @if ($item->status == 3)
-                  <form action="{{ route('items.trade', $item->id) }}" method="post" class="float-right">
+
+                
+
+                @if ($item->status == ItemType::in_progress )
+                  <a href="{{ route('items.addComment', $item->id) }}">
+                    <input type="button" value="コメント" class="btn btn-primary" onclick="location.href={{ route('items.addComment', $item->id) }}">
+                  </a>
+
+                  {{-- <form action="{{ route('items.trade', $item->id) }}" method="post" class="float-right">
                     @csrf
                     @method('put')
                   <input type="submit" value="取引！" class="btn btn-primary" onclick='return confirm("販売しますか？");'>
+                  </form> --}}
+
+                @elseif($item->status == ItemType::with_comment )
+                  <form action="{{ route('items.send', $item->id) }}" method="post" class="float-right">
+                    @csrf
+                    @method('patch')
+                  <input type="submit" value="発送した？" class="btn btn-primary" onclick='return confirm("発送しましたか？");'>
                   </form>
+
                 @endif
+
                 <form action="{{ route('items.destroy', $item->id) }}" method="post" class="float-right">
                   @csrf
                   @method('delete')
                 <input type="submit" value="削除" class="btn btn-danger" onclick='return confirm("削除しますか？");'>
                 </form>
               @else
-                @if ($item->status == 1)
+
+                @if ($item->status == ItemType::selling )
                   <form action="{{ route('items.buy', $item->id) }}" method="post" class="float-right">
                     @method('put')
                     @csrf
                   <input type="submit" value="購入" class="btn btn-primary" onclick='return confirm("購入しますか？");'>
                   </form>
-                @elseif($item->status == 3)
+                @elseif($item->status == ItemType::in_progress )
                   <p>この商品は取引中です</p>
                 @endif
               @endif
@@ -126,6 +160,38 @@
       </div>
     </div>
 
+    <div class="modal" id="evaluationModal" tabindex="-1" aria-labelledby="evaluationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen" data-bs-dismiss="modal" aria-label="Close">
+        <div class="modal-content bg-body">
+          <div>
+            <p>評価してください</p>
+          </div>
+          <div class="modal-body d-flex align-item-center justify-content-center">
+            <br>
+            <div class="row row-cols-3">
+              <div class="col">
+                <form action="{{ route('evaluation.create', ['id' => $item->id, 'value' => 1]) }}" method="post" class="float-right">
+                  @csrf
+                <input type="submit" value="良い" class="btn btn-primary" onclick='return confirm("「良い」で評価しますか？");'>
+                </form> 
+              </div>
+              <div class="col">
+                <form action="{{ route('evaluation.create', ['id' => $item->id, 'value' => 2]) }}" method="post" class="float-right">
+                  @csrf
+                <input type="submit" value="普通" class="btn btn-primary" onclick='return confirm("「普通」で評価しますか？");'>
+                </form> 
+              </div>
+              <div class="col">
+                <form action="{{ route('evaluation.create', ['id' => $item->id, 'value' => 3]) }}" method="post" class="float-right">
+                  @csrf
+                <input type="submit" value="悪い" class="btn btn-primary" onclick='return confirm("「悪い」で評価しますか？？");'>
+                </form> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 @endsection
     
 @section('scripts')

@@ -28,16 +28,12 @@ class SearchController extends Controller
 
         if(!empty($keyword))
         {
-            // todo いじったよ
             $query->where('title','like','%'.$keyword.'%')->join('categories','items.category', '=', 'categories.id')->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
-            // $query->where('title','like','%'.$keyword.'%')->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
         }
         else
         {
             $query->join('categories','items.category', '=', 'categories.id')->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
-            // $query->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
         }
-
 
         $parent;
         $array;
@@ -67,7 +63,6 @@ class SearchController extends Controller
         $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item20);
         // 現状は完全一致のみ
         
-
         return view('search',[
             'items' => $items,'categories' => $categories, 'keyword' => $keyword, 'k1_category' => $category, 'k2_category' => $category2, 'k3_category' => $category3,
         ]);

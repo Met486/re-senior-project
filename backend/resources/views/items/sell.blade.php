@@ -57,8 +57,8 @@
                 <input type="tel" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" maxlength="13"/>
                 <label for="photo">画像ファイル（複数可）:</label>
                 <input type="file" required class="form-control" name="files[][photo]" id="files[][photo]" multiple>
-                <label for="comment">アズカリの約束メモ記入欄(300文字まで）</label>
-                <textarea class="form-control" name="comment" if="comment" maxlength="300" cols="50" rows="10" value={{ old('comment')}}></textarea>
+                {{-- <label for="comment">アズカリの約束メモ記入欄(300文字まで）</label>
+                <textarea class="form-control" name="comment" if="comment" maxlength="300" cols="50" rows="10" value={{ old('comment')}}></textarea> --}}
               </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">送信</button>

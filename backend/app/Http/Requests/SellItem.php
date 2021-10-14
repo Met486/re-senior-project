@@ -29,7 +29,7 @@ class SellItem extends FormRequest
             'category' => 'required',
             // 'sub_category' => 'required',
             'isbn_13' => 'required|max:13|min:13',
-            'files.*.photo' => 'image|mimes:jpeg,bmp,png',
+            'files.*.photo' => 'required|image|mimes:jpeg,bmp,png',
             //
         ];
     }
@@ -41,6 +41,7 @@ class SellItem extends FormRequest
             'category' => 'カテゴリ',
             'sub_category' => 'サブカテゴリ',
             'isbn_13' => 'ISBN-13',
+            // 'comment' => 'コメント',
         ];
     }
 }
