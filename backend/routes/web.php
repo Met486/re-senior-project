@@ -6,6 +6,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EvaluationController;
+
 
 
 Route::get('/welcome', function () {
@@ -32,11 +34,16 @@ Route::group(['middleware' => ['auth']], function(){
     Route::delete('/items/{id}', [ItemController::class,'delete'] )->name('items.destroy');
     Route::put('/items/{id}/buy', [ItemController::class,'buy'] )->name('items.buy');
     Route::put('/items/{id}/trade', [ItemController::class,'trade'] )->name('items.trade');
+    Route::get('/items/{id}/add_comment',[ItemController::class,'showAddCommentForm'])->name('items.addComment');
+    Route::patch('/items/{id}/add_comment',[ItemController::class,'addComment']);
+    Route::patch('/items/{id}/send',[ItemController::class,'send'])->name('items.send');
+    Route::post('/items/{id}/evaluation',[EvaluationController::class,'create'])->name('evaluation.create');
 
     // 以下マイページ機能
     Route::get('/mypage',[UserController::class,'showMypage'])->name('users.mypage.mypage');
     Route::get('/mypage/listings/listing',[UserController::class,'showSellingList'])->name('users.mypage.listings.listing');
     Route::get('/mypage/listings/in_progress',[UserController::class,'showInProgressList'])->name('users.mypage.listings.in_progress');
+    Route::get('/mypage/listings/with_comment',[UserController::class,'showWithCommentList'])->name('users.mypage.listings.with_comment');
     Route::get('/mypage/listings/completed',[UserController::class,'showCompletedList'])->name('users.mypage.listings.completed');
     Route::get('/mypage/listings/buyed',[UserController::class,'showCompletedList'])->name('users.mypage.listings.buyed');
 
