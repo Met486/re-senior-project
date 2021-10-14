@@ -231,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'CategoryConsts' => App\Consts\CategoryConsts::class,
+        'ItemType' => App\Enums\ItemType::class,
     ],
 
 ];

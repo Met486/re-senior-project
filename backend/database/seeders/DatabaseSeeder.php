@@ -13,6 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            CategoriesTableSeeder::class,
+            UsersTableSeeder::class,
+            ItemsTableSeeder::class,
+            ItemPhotosTableSeeder::class,
+        ]);
         // \App\Models\User::factory(10)->create();
+        // 追加後は composer dump-autoloadの実行必要あり らしいが、実際どうなのかはわからない
     }
 }

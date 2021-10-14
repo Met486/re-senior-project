@@ -7,12 +7,13 @@
       <div class="col col-md-offset-3 col-md-6">
         <nav class="panel panel-default">
           <div class="panel-heading">
-            トップ！！
+            出品者との物品のやり取りは他サービスを利用することになります。
+            推奨は匿名配送が可能かつ、金銭面でのトラブルが少ない「アズカリ」を推奨しています。
           </div>
           <div class="panel-body">
             <div class="text-center">
               <a href="{{ route('search') }}" class="btn btn-primary">
-                検索・管理ページへ
+                検索ページへ
               </a>
             </div>
           </div>
