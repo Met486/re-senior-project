@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
-    
     <header>
       <nav class="my-navbar fixed-top">
         <a class="my-navbar-brand" href="/">Trade App</a>
@@ -71,8 +70,68 @@
       <div class="container-fluid">
         @yield('content')
       </div>
+      
     </main>
     @yield('scripts')
       <script src="{{ mix('/js/layout.js') }}"></script>
-  </body>
+
+        <div class="container bg-dark"><!--カルーセル-->
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+              <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+              <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://1.bp.blogspot.com/-8TkG8niAWbg/X3hF6vgntdI/AAAAAAABblI/T5hUVJ_RITssPJhAnJAHN1ETOuKsT3F8wCNcBGAsYHQ/s1600/dance_youchien.png" class="d-block w-25" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://1.bp.blogspot.com/-fv0QftEDTKA/XobTAMZzplI/AAAAAAABYDc/bmcbtpo7R3Ur1zJvr-yt9Ad2Vw77YsHrQCNcBGAsYHQ/s1600/banzai_kids_people.png" class="d-block w-25" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://1.bp.blogspot.com/-EzpyzsBjUfE/XhwqYyUPenI/AAAAAAABW_E/GiRnp48Lh24oftuMnG2uqcdS-effJSHKgCNcBGAsYHQ/s1600/kouen_untei_boy.png" class="d-block w-25" alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </a>
+          </div>
+        </div><!--カルーセル終-->
+
+        
+
+        </div>
+      </div>
+    </body>
+  <footer>
+
+  <!--https://qumeru.com/magazine/193-->
+  <div class="container-fluid bg-primary sticky-top"><!--フッター-->
+    <div class="row g-3">
+      <div class="col-6">
+        <div class="p-3 text-center">コンテンツ</div>
+      </div>
+      <div class="col-6">
+        <div class="p-3 text-center">ヘルプとガイド</div>
+      </div>
+      <div class="col-6">
+        <div class="p-3 text-center">プライバシーと利用規約</div>
+      </div>
+      <div class="col-6">
+        <div class="p-3 text-center">Trade Appについて</div>
+      </div>
+      <div class="col-12">
+        <div class="p-3 text-center">サイトロゴ</div>
+      </div>
+    </div>
+  </div><!--フッター-->
+
+  </footer>
+
 </html>
