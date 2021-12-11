@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evaluation;
+use App\Models\WishEvaluation;
 use App\Models\Item;
+use App\Models\WishItem;
 use Illuminate\Support\Facades\Auth;
 
 class EvaluationController extends Controller
@@ -52,6 +54,25 @@ class EvaluationController extends Controller
 
         $evaluation->seller_id = $item->seller_id;
         $evaluation->buyer_id = Auth::id();
+        $evaluation->item_id = $request->id;
+        $evaluation->status = $request->value;
+        
+        // commentは後回し
+        $evaluation->comment = "";
+        
+        $evaluation->save();
+        
+        return redirect()->back()->withInput()->with('evaluation',$evaluation);
+    }
+
+    public function wishCreate(Request $request)
+    {
+        $evaluation = new WishEvaluation();
+
+        $item = WishItem::find($request->id);
+
+        $evaluation->seller_id = $item->seller_id;
+        $evaluation->wisher_id = Auth::id();
         $evaluation->item_id = $request->id;
         $evaluation->status = $request->value;
         

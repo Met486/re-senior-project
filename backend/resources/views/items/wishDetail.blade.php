@@ -27,7 +27,7 @@
             @endif
 
             <label for="photos">写真</label>
-            <div id="carouselPhotos" class="carousel slide" data-bs-ride="carousel">
+            {{-- <div id="carouselPhotos" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-indicators">
                 @foreach ($photos as $i)
                   <button data-bs-target="#carouselPhotos" data-bs-slide-to="{{ $i->index }}" <?php if ($i->index ==0) echo 'class="active" aria-current="true"'; ?> aria-label="Slide {{ $i->index+1 }}"></button>  
@@ -50,7 +50,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>
-            </div>
+            </div> --}}
             <br>
             
             <div>
@@ -68,7 +68,7 @@
             <label for="title">タイトル</label>
             <p>{{ $item->title }}</p>
 
-            <label for="seller">出品者</label>
+            <label for="wisher">希望者</label>
             <p><a href="{{ route('users.user',['id' => $user_id]) }}">{{ $user_name }}</a></p>
 
             <label for="status">状態</label>
@@ -86,31 +86,39 @@
             
             
             @if(Auth::check())
-              @if (Auth::id() == $item->buyer_id)
+              @if (Auth::id() == $item->seller_id)
+                {{-- ToDo delete --}}
+                <p>
+                  You are seller.
+                </p>
+
                 @if($item->status == ItemType::with_comment)
                   <label for="comment">約束メモ</label>
-                  <textarea name="comment" readonly cols="50" rows="10">{{ $item->comment }}</textarea>
+                  {{-- <textarea name="comment" readonly cols="50" rows="10">{{ $item->comment }}</textarea> --}}
                   <br>
                   <label for="url">URL</label>
                   <a href="{{$item->url}}">取引メモはこちらからアクセスしてください</a> 
+                  <div>
+                    <form action="{{ route('wishItems.send', $item->id) }}" method="post" class="float-right">
+                      @csrf
+                      @method('patch')
+                    <input type="submit" value="発送した？" class="btn btn-primary" onclick='return confirm("発送しましたか？");'>
+                    </form>
+                  </div>
                 @elseif($item->status == ItemType::in_progress)
                   <div>
                     <p>出品者の約束メモをお待ち下さい</p>
                   </div>
-                @elseif($item->status == ItemType::sending)
-                  <div>
-                    <p>到着次第、こちらから評価をお願いします</p>
-                    <input type="submit" value="評価" class="btn btn-primary" a data-bs-toggle="modal" data-bs-target="#evaluationModal">
-                  </div>
+                {{-- @elseif($item->status == ItemType::with_comment) --}}
+
+
                 @endif
               @endif
 
-              @if (Auth::id() == $item->seller_id)
-
-                
+              @if (Auth::id() == $item->wisher_id)
 
                 @if ($item->status == ItemType::in_progress )
-                  <a href="{{ route('items.addComment', $item->id) }}">
+                  <a href="{{ route('wishItems.addComment', $item->id) }}">
                     <input type="button" value="コメント" class="btn btn-primary" onclick="location.href={{ route('items.addComment', $item->id) }}">
                   </a>
 
@@ -120,12 +128,9 @@
                   <input type="submit" value="取引！" class="btn btn-primary" onclick='return confirm("販売しますか？");'>
                   </form> --}}
 
-                @elseif($item->status == ItemType::with_comment )
-                  <form action="{{ route('items.send', $item->id) }}" method="post" class="float-right">
-                    @csrf
-                    @method('patch')
-                  <input type="submit" value="発送した？" class="btn btn-primary" onclick='return confirm("発送しましたか？");'>
-                  </form>
+                @elseif($item->status == ItemType::sending )
+                 <p>到着次第、こちらから評価をお願いします</p>
+                 <input type="submit" value="評価" class="btn btn-primary" a data-bs-toggle="modal" data-bs-target="#evaluationModal">
 
                 @endif
 
@@ -137,10 +142,10 @@
               @else
 
                 @if ($item->status == ItemType::selling )
-                  <form action="{{ route('items.buy', $item->id) }}" method="post" class="float-right">
+                  <form action="{{ route('wishItems.sell', $item->id) }}" method="post" class="float-right">
                     @method('put')
                     @csrf
-                  <input type="submit" value="購入" class="btn btn-primary" onclick='return confirm("購入しますか？");'>
+                  <input type="submit" value="販売挙手" class="btn btn-primary" onclick='return confirm("購入しますか？");'>
                   </form>
                 @elseif($item->status == ItemType::in_progress )
                   <p>この商品は取引中です</p>
@@ -200,19 +205,19 @@
             <br>
             <div class="row row-cols-3">
               <div class="col">
-                <form action="{{ route('evaluation.create', ['id' => $item->id, 'value' => 1]) }}" method="post" class="float-right">
+                <form action="{{ route('wishEvaluation.create', ['id' => $item->id, 'value' => 1]) }}" method="post" class="float-right">
                   @csrf
                 <input type="submit" value="良い" class="btn btn-primary" onclick='return confirm("「良い」で評価しますか？");'>
                 </form> 
               </div>
               <div class="col">
-                <form action="{{ route('evaluation.create', ['id' => $item->id, 'value' => 2]) }}" method="post" class="float-right">
+                <form action="{{ route('wishEvaluation.create', ['id' => $item->id, 'value' => 2]) }}" method="post" class="float-right">
                   @csrf
                 <input type="submit" value="普通" class="btn btn-primary" onclick='return confirm("「普通」で評価しますか？");'>
                 </form> 
               </div>
               <div class="col">
-                <form action="{{ route('evaluation.create', ['id' => $item->id, 'value' => 3]) }}" method="post" class="float-right">
+                <form action="{{ route('wishEvaluation.create', ['id' => $item->id, 'value' => 3]) }}" method="post" class="float-right">
                   @csrf
                 <input type="submit" value="悪い" class="btn btn-primary" onclick='return confirm("「悪い」で評価しますか？？");'>
                 </form> 

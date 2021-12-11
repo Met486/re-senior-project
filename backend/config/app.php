@@ -232,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'CategoryConsts' => App\Consts\CategoryConsts::class,
         'ItemType' => App\Enums\ItemType::class,
+        'ScratchType' => App\Enums\ScratchType::class,
     ],
 
 ];

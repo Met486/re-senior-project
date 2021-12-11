@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SellItem extends FormRequest
+class WishItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,8 +13,7 @@ class SellItem extends FormRequest
      */
     public function authorize()
     {
-        // return false;
-        return true; // TODO 追々ログイン状態であることを確認する
+        return true;
     }
 
     /**
@@ -27,14 +26,12 @@ class SellItem extends FormRequest
         return [
             'title' => 'required|max:200',
             'category' => 'required',
-            // 'sub_category' => 'required',
             'isbn_13' => 'required|max:20|min:13',
             'scratches' => 'required',
-            'files.*.photo' => 'required|image|mimes:jpeg,bmp,png',
-            //
+            'cover' => 'required',
         ];
     }
-
+    
     public function attributes()
     {
         return [

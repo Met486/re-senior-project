@@ -14,6 +14,7 @@ const confirmAuthor = document.getElementById("confirm_author");
 const confirmPublisher = document.getElementById("confirm_publisher");
 const confirmCover = document.getElementById("confirm_cover");
 const confirmDate = document.getElementById("confirm_date");
+const cover = document.getElementById("cover");
 
 // const confrimHan = document.getElementById("confirm_han");
 // s2Category.style.display = "none";
@@ -95,7 +96,7 @@ s2Category.onchange = function(){
 
 isbn_13.addEventListener("change", function(){
 
-    var bdUrl =  "https://api.openbd.jp/v1/get?isbn=" + isbn_13.value.replace( /[^0-9]/g, "");
+    var bdUrl =  "https://api.openbd.jp/v1/get?isbn=" + isbn_13.value.replace( /[^0-9]/, "");
 
     // $.ajax({
     //     // url: "https://api.openbd.jp/v1/get?isbn=9784492534434",
@@ -134,9 +135,9 @@ isbn_13.addEventListener("change", function(){
             confirmDate.value = result[0].summary.pubdate;
             confirmPublisher.value = result[0].summary.publisher;
             confirmCover.src = result[0].summary.cover;
-            
+            cover.value = result[0].summary.cover;
             bookConfirm.style.display = "block";
-            console.log("bookConfirm displayed");
+            console.log("cover link is "+cover.value);
         });
 
 })

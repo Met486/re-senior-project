@@ -13,7 +13,7 @@ class ItemTest extends TestCase
         $this->seed('ItemsTableSeeder');
 
         $response = $this->post('/items/2/edit',[
-            'title' => "お金持ちになりたいか～～～？",
+            'title' => "お金持ちに？",
             'category' => '1',
             'sub_category' => '1',
             'isbn_13' => '1234567890123',

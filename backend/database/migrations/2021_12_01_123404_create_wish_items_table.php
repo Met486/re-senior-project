@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemsTable extends Migration
+class CreateWishItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,21 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('wish_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->unsignedBigInteger('seller_id');
-            $table->unsignedBigInteger('buyer_id')->nullable();
+            $table->unsignedBigInteger('seller_id')->nullable();
+            $table->unsignedBigInteger('wisher_id');
             $table->integer('category')->unsigned();
-            // $table->integer('sub_category')->unsigned();
             $table->string('isbn_13',13);//ハイフン抜き
             $table->integer('status')->default(1);
             $table->integer('scratches')->nullable();
             $table->string('comment',300)->default("");
             $table->string('url')->default("");
+            $table->string('cover_path');
             $table->timestamps();
 
-            $table->foreign('seller_id')->references('id')->on('users');
+            $table->foreign('wisher_id')->references('id')->on('users');
         });
     }
 
@@ -38,6 +38,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('wish_items');
     }
 }
