@@ -21,6 +21,7 @@
               @csrf
               <div class="form-group">
                 {{-- <label for="cover"></label> --}}
+                <input type="hidden" class="form-control" name="cover" id="cover" value="{{ old('cover') }}" maxlength="20"/>
                 <label for="isbn_13">ISBN-13</label>
                 <input type="tel" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" maxlength="20"/>
                 <label for="title">タイトル</label>

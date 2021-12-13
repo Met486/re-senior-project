@@ -6,6 +6,13 @@
     <div class="row row-cols-2">
 
       <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        <div>
+          @if(strcmp($isWish,"true") == 0)
+          <p class="bg-info text-center">欲しい物一覧</p>
+          @else
+          <p class="bg-primary text-center">出品物一覧</p>
+          @endif
+        </div>
       <h4>詳細検索</h4>
         <label for="d1_category">カテゴリ</label>
         <select name="category" id="category">
