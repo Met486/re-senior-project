@@ -7,6 +7,7 @@ use App\Models\WishItem;
 use App\Models\WishEvaluation;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\WishItemPhoto;
 use App\Http\Requests\WishItemRequest;
 use App\Http\Requests\EditItem;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,12 @@ class WishItemController extends Controller
         $item = new WishItem();
         
         $last_id = WishItem::orderBy('created_at','desc')->first();
-
+        if($last_id != null){
+            $last_id_int = $last_id->id;
+        }
+        else{
+            $last_id_int = 0;
+        }
         // var_dump($last_id->id);
         
         $item->title = $request->title;
@@ -47,19 +53,38 @@ class WishItemController extends Controller
         // $item->isbn_13 = $request->isbn_13;
         $item->scratches = $request->scratches;
         $item->wisher_id = Auth::id(); // ここでログイン情報を取れるらしい
+        $item->price = $request->price;
 
         // $item->save();
 
-        $cover_link = $request->cover;
-        $ext = substr($cover_link, strrpos($cover_link, '.') + 1);
-        $id = $last_id->id + 1;
-        if($cover_link){
-            $data = file_get_contents($cover_link);
-            file_put_contents("item/wish_photos/$id.$ext",$data);   
-            $item->cover_path = ("item/wish_photos/$id.$ext");
-        }
+        // $cover_link = $request->cover;
+        // $ext = substr($cover_link, strrpos($cover_link, '.') + 1);
+        // $id = $last_id_int + 1;
+        // if($cover_link){
+        //     $data = file_get_contents($cover_link);
+        //     file_put_contents("item/wish_photos/$id.$ext",$data);   
+        //     $item->cover_path = ("item/wish_photos/$id.$ext");
+        // }
 
         $item->save();
+        $photo = new WishItemPhoto();
+
+        $cover_link = $request->cover;
+        $ext = substr($cover_link, strrpos($cover_link, '.') + 1);
+        $id = $last_id_int + 1;
+        if($cover_link){
+            $data = file_get_contents($cover_link);
+            mkdir("item/wish_photos/$item->id");
+            
+            file_put_contents("item/wish_photos/$item->id/0.$ext",$data);   
+            // $item->cover_path = ("item/wish_photos/$id.$ext");
+            $photo->item_id = $item->id;
+            $photo->index = 0;
+            $photo->path = "item/wish_photos/$item->id/0.$ext";
+            $photo->save();
+        }
+
+
 
 
         return redirect()->route('search'); // todo searchは暫定 追々登録完了ページに送る

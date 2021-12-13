@@ -20,7 +20,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/search',[SearchController::class,'index'])->name('search');
-Route::get('/wish/search',[SearchController::class,'wishSearch'])->name('wishItems.search');
+// Route::get('/wish/search',[SearchController::class,'wishSearch'])->name('wishItems.search');
 
 
 

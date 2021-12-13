@@ -104,8 +104,8 @@
                 </div>
               </div>
             </div>
-            <nav aria-label="Page navigation example"><!--ページネーション-->
-              <ul class="pagination justify-content-center">
+            <nav class="d-flex justify-content-center" aria-label="Page navigation example"><!--ページネーション-->
+              <ul class="pagination">
                 <li class="page-item disabled">
                   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>

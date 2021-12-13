@@ -39,7 +39,35 @@
           @endforeach
           </select>
         </div>
+        
+        <form>
+          <div class="row mb-3">
+            <label for="price" class="col-12 col-form-label">価格（単位:円）</label>
+            <div class="col-12">
+              <input type="text" step="1" min="0" oninput="value = value.replace(/[^0-9]+/i,'');" class="form-control" name="price" id="price" value="@if (isset ($price)) {{ $price }} @endif">
+            </div>
+          </div>
+          <fieldset class="row mb-3 justify-content-center">
+            <div class="col-sm-9">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="on_sail">
+                <label class="form-check-label" for="on_sail">
+                  出品中のみ
+                </label>
+              </div>
+              <div>
+                <input class="form-check-input" type="checkbox" id="wish">
+                <label class="form-check-label" for="wish">
+                  「欲しい物」検索モード
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          {{-- <button class="btn btn-primary" id="key_btn2">検索</button> --}}
+        </form>
+        
       </div>
+
 
       <div class="col-lg-11 col-md-10 col-sm-10 col-xs-12">
         <div class="d-flex flex-wrap d-center">
@@ -56,6 +84,7 @@
           @endforeach
         </div>
       </div>
+
 
     </div>
       

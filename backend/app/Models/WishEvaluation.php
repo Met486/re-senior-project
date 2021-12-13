@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class WishEvaluation extends Model
 {
-    public function items()
+    public function wishItems()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(WishItem::class);
     }
 
     const STATUS = [

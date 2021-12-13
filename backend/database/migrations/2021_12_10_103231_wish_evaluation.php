@@ -36,6 +36,7 @@ class WishEvaluation extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('wish_evaluations');
+        
     }
 }

@@ -61,6 +61,10 @@
               @endif
             </div>
             
+            <label for="price">価格</label>
+            <p>{{ $item->price }}円</p>
+            
+
             <label for="scratch">傷の有無</label>
             <p>{{ $item->scratch_label }}</p>
             
@@ -191,7 +195,7 @@
     </div>
 
     <div class="modal" id="evaluationModal" tabindex="-1" aria-labelledby="evaluationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-fullscreen" data-bs-dismiss="modal" aria-label="Close">
+      <div class="modal-dialog " data-bs-dismiss="modal" aria-label="Close">
         <div class="modal-content bg-body">
           <div>
             <p>評価してください</p>

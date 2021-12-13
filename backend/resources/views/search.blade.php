@@ -41,33 +41,32 @@
           </select>
         </div>
 
-        
-              <form>
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-12 col-form-label">キーワード</label>
-                  <div class="col-12">
-                    <input type="email" class="form-control" id="inputEmail3">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputPassword3" class="col-12 col-form-label">価格</label>
-                  <div class="col-12">
-                    <input type="password" class="form-control" id="inputPassword3">
-                  </div>
-                </div>
-                <fieldset class="row mb-3 justify-content-center">
-                  <div class="col-sm-9">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gridCheck1">
-                      <label class="form-check-label" for="gridCheck1">
-                        出品中のみ
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-                <button type="submit" class="btn btn-primary">検索</button>
-              </form>
-
+        <form>
+          <div class="row mb-3">
+            <label for="price" class="col-12 col-form-label">価格（単位:円）</label>
+            <div class="col-12">
+              <input type="text" step="1" min="0" oninput="value = value.replace(/[^0-9]+/i,'');" class="form-control" name="price" id="price" value="@if (isset ($price)) {{ $price }} @endif ">
+            </div>
+          </div>
+          <fieldset class="row mb-3 justify-content-center">
+            <div class="col-sm-9">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="on_sail">
+                <label class="form-check-label" for="on_sail">
+                  出品中のみ
+                </label>
+              </div>
+              <div>
+                <input class="form-check-input" type="checkbox" id="wish" @if(strcmp($isWish,"true") == 0){{"checked"}} @endif>
+                <label class="form-check-label" for="wish">
+                  「欲しい物」検索モード
+                </label>
+              </div>
+              
+            </div>
+          </fieldset>
+          {{-- <button class="btn btn-primary" id="key_btn2">検索</button> --}}
+        </form>
 
       </div>
 
@@ -79,8 +78,8 @@
               <img src="{{ asset( $item->path )}}" class="card-img-top s-image">
               <div class="card-body">
                 <h5 class="card-title">{{ $item->title }}
-                ￥1200
                 </h5>
+                <h5>{{ $item->price }}円</h5>
                 {{-- <a href="{{ route('items.detail',['id' => $item->id]) }}" class="btn btn-primary">詳細</a> --}}
               </div>
             </a>

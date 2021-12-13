@@ -16,6 +16,7 @@ class CreateWishItemsTable extends Migration
         Schema::create('wish_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->integer('price');
             $table->unsignedBigInteger('seller_id')->nullable();
             $table->unsignedBigInteger('wisher_id');
             $table->integer('category')->unsigned();
@@ -24,7 +25,7 @@ class CreateWishItemsTable extends Migration
             $table->integer('scratches')->nullable();
             $table->string('comment',300)->default("");
             $table->string('url')->default("");
-            $table->string('cover_path');
+            // $table->string('cover_path');
             $table->timestamps();
 
             $table->foreign('wisher_id')->references('id')->on('users');
@@ -38,6 +39,7 @@ class CreateWishItemsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('wish_evaluations');
         Schema::dropIfExists('wish_items');
     }
 }

@@ -60,10 +60,12 @@
                   
               @endif
             </div>
+          
+            <label for="price">価格</label>
+            <p>{{ $item->price }}円</p>
             
             <label for="scratch">傷の有無</label>
             <p>{{ $item->scratch_label }}</p>
-            
 
             <label for="title">タイトル</label>
             <p>{{ $item->title }}</p>

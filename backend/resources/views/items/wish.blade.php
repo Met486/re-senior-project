@@ -21,11 +21,12 @@
               @csrf
               <div class="form-group">
                 {{-- <label for="cover"></label> --}}
-                <input type="text" class="form-control" name="cover" id="cover" value="{{ old('cover') }}" />
                 <label for="isbn_13">ISBN-13</label>
                 <input type="tel" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" maxlength="20"/>
                 <label for="title">タイトル</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" />
+                <label for="price">希望価格（購入者が払う金額）</label>
+                <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}" />
                 <label for="scratch">傷の有無</label>
                 <br>
                 <select name="scratches" id="scratches">

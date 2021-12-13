@@ -40,10 +40,11 @@ class ItemController extends Controller
         $item->title = $request->title;
         $item->category = $request->category;
         // $item->sub_category = $request->sub_category;
-        $item->isbn_13 = preg_replace('/[^0-9]/g','',$request->isbn_13);
+        $item->isbn_13 = preg_replace('/[^0-9]/','',$request->isbn_13);
         // $item->isbn_13 = $request->isbn_13;
         $item->scratches = $request->scratches;
         $item->seller_id = Auth::id(); // ここでログイン情報を取れるらしい
+        $item->price = $request->price;
         // $item->comment = $request->comment;
         // preg_match_all('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+)', $item->comment, $array);
         

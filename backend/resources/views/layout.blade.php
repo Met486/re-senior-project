@@ -10,51 +10,49 @@
     @yield('styles')
   </head>
   <body>
-    <header>
-      <nav class="my-navbar fixed-top">
-        <a class="my-navbar-brand" href="/">Trade App</a>
-        <div class="form-inline">
-        {{-- <form class="form-inline" action="#" method="get"> --}}
-          {{-- <form class="form-inline" action="{{ route('search') }} " method="get"> --}}
-          {{-- <div class="form-group mx-sm-3 mx-xs-1 mb-2 "> --}}
-            <input type="text" class="form-control" name="keyword" id="keyword" value="@if (isset ($keyword)) {{$keyword}} @endif "/>
-          {{-- </div> --}}
-            {{-- <button type="submit" class="btn btn-primary mb-2" id="key_btn">検索</button> --}}
-            <button class="btn btn-primary mb-2" id="key_btn">検索</button>
-        {{-- </form> --}}
-      </div>
-        @if (Route::has('login'))
-            @auth
-              <div>
-              <a href="{{ route('users.mypage.mypage') }}">マイページ</a>
-              <a href="{{ route('items.sell') }}">出品</a>
-
-              <!-- <a href=" {{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" method="POST">Log out</a> -->
-              <form method="POST" action="{{ route('logout') }}">
-              @csrf
-
-              <x-jet-responsive-nav-link href="{{ route('logout') }}"
-                  onclick="event.preventDefault();
-                  this.closest('form').submit();">
-                  {{ __('Logout') }}
-              </x-jet-responsive-nav-link>
-              </form>
-              </div>
-              @else
-              <div>
-                <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ログイン</a>
-
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">登録</a>
-                @endif
-              </div>
-            @endauth
-
-        @endif
+    <div id="wrapper">
+      <header>
+        <nav class="my-navbar fixed-top">
+          <a class="my-navbar-brand" href="/">Trade App</a>
+          <div class="form-inline">
+          {{-- <form class="form-inline" action="#" method="get"> --}}
+            {{-- <form class="form-inline" action="{{ route('search') }} " method="get"> --}}
+            {{-- <div class="form-group mx-sm-3 mx-xs-1 mb-2 "> --}}
+              <input type="text" class="form-control" name="keyword" id="keyword" value="@if (isset ($keyword)) {{$keyword}} @endif "/>
+            {{-- </div> --}}
+              {{-- <button type="submit" class="btn btn-primary mb-2" id="key_btn">検索</button> --}}
+              <button class="btn btn-primary mb-2" id="key_btn">検索</button>
+          {{-- </form> --}}
+        </div>
+          @if (Route::has('login'))
+              @auth
+                <div>
+                <a href="{{ route('users.mypage.mypage') }}">マイページ</a>
+                <a href="{{ route('items.sell') }}">出品</a>
+                <a href="{{ route('wishItems.wish') }}">ほしいもの</a>
+                <!-- <a href=" {{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" method="POST">Log out</a> -->
+                <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    this.closest('form').submit();">
+                    {{ __('Logout') }}
+                </x-jet-responsive-nav-link>
+                </form>
+                </div>
+                @else
+                <div>
+                  <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ログイン</a>
+                  @if (Route::has('register'))
+                  <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">登録</a>
+                  @endif
+                </div>
+              @endauth
+          @endif
       
-      </nav>
-
-    </header>
+        </nav>
+      </header>
+    </div>
     <main>
       @if (session('flash_message'))
         <div class="flash_message">
@@ -67,15 +65,9 @@
         </div>
       @endif
       
-      <div class="container-fluid">
+      <div class="container-fluid inner">
         @yield('content')
-      </div>
-      
-    </main>
-    @yield('scripts')
-      <script src="{{ mix('/js/layout.js') }}"></script>
-
-        <div class="container bg-dark"><!--カルーセル-->
+        {{-- <div class="container bg-dark"><!--カルーセル-->
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <ol class="carousel-indicators">
               <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
@@ -101,37 +93,39 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </a>
-          </div>
+          </div> --}}
         </div><!--カルーセル終-->
-
-        
-
-        </div>
       </div>
+      
+    </main>
+    @yield('scripts')
+      <script src="{{ mix('/js/layout.js') }}"></script>
+
+      <footer>
+
+        <!--https://qumeru.com/magazine/193-->
+        <div class="container-fluid bg-primary sticky-top"><!--フッター-->
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="p-3 text-center">コンテンツ</div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 text-center">ヘルプとガイド</div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 text-center">プライバシーと利用規約</div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 text-center">Trade Appについて</div>
+            </div>
+            <div class="col-12">
+              <div class="p-3 text-center">サイトロゴ</div>
+            </div>
+          </div>
+        </div><!--フッター-->
+      
+        </footer>
     </body>
-  <footer>
 
-  <!--https://qumeru.com/magazine/193-->
-  <div class="container-fluid bg-primary sticky-top"><!--フッター-->
-    <div class="row g-3">
-      <div class="col-6">
-        <div class="p-3 text-center">コンテンツ</div>
-      </div>
-      <div class="col-6">
-        <div class="p-3 text-center">ヘルプとガイド</div>
-      </div>
-      <div class="col-6">
-        <div class="p-3 text-center">プライバシーと利用規約</div>
-      </div>
-      <div class="col-6">
-        <div class="p-3 text-center">Trade Appについて</div>
-      </div>
-      <div class="col-12">
-        <div class="p-3 text-center">サイトロゴ</div>
-      </div>
-    </div>
-  </div><!--フッター-->
-
-  </footer>
 
 </html>

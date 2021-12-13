@@ -25,6 +25,11 @@ class WishItem extends Model
         return self::SCRATCH[$scratch]['label'];
     }
 
+    public function photos()
+    {
+        return $this->hasMany('App\Models\WishItemPhoto');
+    }
+    
     public function category()
     {
         return $this->belongsTo(Category::class);
