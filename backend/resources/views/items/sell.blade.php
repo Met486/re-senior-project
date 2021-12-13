@@ -20,8 +20,20 @@
           <form action="{{ route('items.sell') }}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
-                <label for="title">アイテム名</label>
+                <label for="isbn_13">ISBN-13</label>
+                <input type="tel" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" maxlength="20"/>
+                <label for="title">タイトル</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" />
+                <label for="price">希望価格（購入者が払う金額）</label>
+                <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}" />
+                <label for="scratch">傷の有無</label>
+                <br>
+                <select name="scratches" id="scratches">
+                  <option value="1">なし</option>
+                  <option value="2">少し傷あり</option>
+                  <option value="3">傷あり(読めない)</option>
+                  <option value="4">かなり傷あり(読めない)</option>
+                </select>
                 <div id="d1_category">
                   <label for="s1_category">カテゴリ1</label>
                   <br>
@@ -53,8 +65,7 @@
                   </select>
                 </div>
                   <br>
-                <label for="isbn_13">ISBN-13</label>
-                <input type="tel" class="form-control" name="isbn_13" id="isbn_13" value="{{ old('isbn_13') }}" maxlength="13"/>
+
                 <label for="photo">画像ファイル（複数可）:</label>
                 <input type="file" required class="form-control" name="files[][photo]" id="files[][photo]" multiple>
                 {{-- <label for="comment">アズカリの約束メモ記入欄(300文字まで）</label>
@@ -66,6 +77,32 @@
             </form>
           </div>
         </nav>
+      </div>
+    </div>
+    
+    <div  id="book_confirm">
+      <div class="col col-md-offset-3 col-md-6">
+        <div class="panel panel-default">
+          <div class="badge panel-heading">こちらの本で合っていますか？</div>
+            <div class="panel-body">
+              <div class="col col-md-offset-1 col-md-3">
+                <label for="confirm_cover">表紙</label>
+                <p><img src="" alt="" id="confirm_cover"></p>
+              </div>
+              <div class="col col-md-offset-2 col-md-3">
+                <label for="confirm_title">タイトル</label>
+                <p><textarea class="overflow-wrap" id="confirm_title" readonly></textarea></p>
+                <label for="confirm_author">著者</label>
+                <p><input id="confirm_author" readonly/></p>
+                <label for="confirm_publisher">出版社</label>
+                <p><input id="confirm_publisher" readonly/></p>
+                <label for="confirm_date">出版日</label>
+                <p><input id="confirm_date" readonly/></p>
+              </div>
+                
+            </div>
+
+        </div>
       </div>
     </div>
   </div>

@@ -14,6 +14,7 @@ use App\Enums\ItemType;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddCommentItem;
 
+use Illuminate\Support\Facades\Log;
 
 class ItemController extends Controller
 {
@@ -31,8 +32,6 @@ class ItemController extends Controller
     {
         $categories = Category::where('parent_id',1)->get();
         return view('/items/sell',['categories' => $categories]);
-
-
     }
     
     public function sell(SellItem $request)
@@ -41,9 +40,11 @@ class ItemController extends Controller
         $item->title = $request->title;
         $item->category = $request->category;
         // $item->sub_category = $request->sub_category;
-        $item->isbn_13 = $request->isbn_13;
+        $item->isbn_13 = preg_replace('/[^0-9]/','',$request->isbn_13);
+        // $item->isbn_13 = $request->isbn_13;
+        $item->scratches = $request->scratches;
         $item->seller_id = Auth::id(); // ここでログイン情報を取れるらしい
-
+        $item->price = $request->price;
         // $item->comment = $request->comment;
         // preg_match_all('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+)', $item->comment, $array);
         
@@ -51,6 +52,7 @@ class ItemController extends Controller
         // dd($word_list);
 
         $item->save();
+
 
         foreach ($request->file('files') as $index=> $e) {
             $ext = $e['photo']->guessExtension();
@@ -153,7 +155,7 @@ class ItemController extends Controller
 
     public function trade($id)
     {
-        $item = ITem::find($id);
+        $item = Item::find($id);
         $user_id = Auth::id();
 
         if($user_id != $item->seller_id)

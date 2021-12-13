@@ -13,6 +13,13 @@ class Item extends Model
         3 => [ 'label' => '取引中', 'class' => ''],
     ];
 
+    const SCRATCH = [
+        1 => [ 'label' => 'なし'],
+        2 => [ 'label' => '少し傷あり'],
+        3 => [ 'label' => '傷あり(読める)'],
+        4 => [ 'label' => 'かなり傷あり(読めない)'],
+    ];
+
     public function getStatusLabelAttribute()
     {
         $status = $this->attributes['status'];
@@ -24,6 +31,16 @@ class Item extends Model
         return self::STATUS[$status]['label'];
     }
 
+    public function getScratchLabelAttribute()
+    {
+        $scratch = $this->attributes['scratches'];
+
+        if(!isset(self::SCRATCH[$scratch])){
+            return '';
+        }
+
+        return self::SCRATCH[$scratch]['label'];
+    }
 
     public function photos()
     {

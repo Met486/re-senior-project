@@ -60,6 +60,14 @@
                   
               @endif
             </div>
+            
+            <label for="price">価格</label>
+            <p>{{ $item->price }}円</p>
+            
+
+            <label for="scratch">傷の有無</label>
+            <p>{{ $item->scratch_label }}</p>
+            
 
             <label for="title">タイトル</label>
             <p>{{ $item->title }}</p>
@@ -149,6 +157,32 @@
       </div>
     </div>
 
+    <div  id="book_confirm">
+      <div class="col col-md-offset-3 col-md-6">
+        <div class="panel panel-default">
+          <div class="badge panel-heading">詳細情報(openBDより)</div>
+            <div class="panel-body">
+              <div class="col col-md-offset-1 col-md-3">
+                <label for="confirm_cover">表紙</label>
+                <p><img src="" alt="" id="confirm_cover"></p>
+              </div>
+              <div class="col col-md-offset-2 col-md-3">
+                <label for="confirm_title">タイトル</label>
+                <p><textarea class="overflow-wrap" id="confirm_title" readonly></textarea></p>
+                <label for="confirm_author">著者</label>
+                <p><input id="confirm_author" readonly/></p>
+                <label for="confirm_publisher">出版社</label>
+                <p><input id="confirm_publisher" readonly/></p>
+                <label for="confirm_date">出版日</label>
+                <p><input id="confirm_date" readonly/></p>
+              </div>
+                
+            </div>
+
+        </div>
+      </div>
+    </div>
+
     {{-- classにfadeを適用するとmodalが表面に表示されなくなる --}}
       <div class="modal" id="lightboxModalFullscreen" tabindex="-1" aria-labelledby="lightboxModalFullscreenLabel" aria-hidden="true">
       <div class="modal-dialog modal-fullscreen" data-bs-dismiss="modal" aria-label="Close">
@@ -161,7 +195,7 @@
     </div>
 
     <div class="modal" id="evaluationModal" tabindex="-1" aria-labelledby="evaluationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-fullscreen" data-bs-dismiss="modal" aria-label="Close">
+      <div class="modal-dialog " data-bs-dismiss="modal" aria-label="Close">
         <div class="modal-content bg-body">
           <div>
             <p>評価してください</p>
@@ -195,6 +229,9 @@
 @endsection
     
 @section('scripts')
+<script>
+const isbn_13 = @json($item->isbn_13);
+</script>
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> --}}
 <script src="{{ mix('js/detail.js') }}"></script>   
 

@@ -25,10 +25,12 @@ class SellItem extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:20',
+            'title' => 'required|max:200',
+            'price' => 'required|integer',
             'category' => 'required',
             // 'sub_category' => 'required',
-            'isbn_13' => 'required|max:13|min:13',
+            'isbn_13' => 'required|max:20|min:13',
+            'scratches' => 'required',
             'files.*.photo' => 'required|image|mimes:jpeg,bmp,png',
             //
         ];

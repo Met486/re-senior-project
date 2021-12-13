@@ -7,6 +7,7 @@ const d1Category = document.getElementById("d1_category");
 const d2Category = document.getElementById("d2_category");
 const d3Category = document.getElementById("d3_category");
 
+
 d2Category.style.display = "none";
 d3Category.style.display = "none";
 
@@ -25,6 +26,7 @@ $.ajaxSetup({
 const keyword = document.getElementById('keyword');
 
 selectCategory.onchange = function(){
+
     console.log("category change");
     var n = "";
     if(window.location.search){
