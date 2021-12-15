@@ -24,6 +24,7 @@ class SearchController extends Controller
         $category3 = $request->input('category3');
         $price = $request->input('price');
         $WISH = $request->input('isWish');
+        $SELLING = $request->input('isSelling');
         // var_dump($request->input('isWish'));
 
         if(!strcmp($WISH,"true") == 0){
@@ -43,14 +44,19 @@ class SearchController extends Controller
             
             if(!empty($price))
             {
-                Log::debug("price is $price");
                 $query->where('price','>=',$price)->get();
+            }
+
+            if(strcmp($SELLING,"true") == 0)
+            {
+                $query->where('status','1')->get();
+                Log::debug("SELLING true");
             }
             else
             {
-                Log::debug("price is not exist");
+                Log::debug("Not");
+
             }
-            
             
             $parent;
             $array;
@@ -81,7 +87,7 @@ class SearchController extends Controller
             // 現状は完全一致のみ
             
             return view('search',[
-                'items' => $items,'categories' => $categories, 'keyword' => $keyword, 'k1_category' => $category, 'k2_category' => $category2, 'k3_category' => $category3, 'price' => $price, 'isWish' => $WISH,
+                'items' => $items,'categories' => $categories, 'keyword' => $keyword, 'k1_category' => $category, 'k2_category' => $category2, 'k3_category' => $category3, 'price' => $price, 'isWish' => $WISH, 'isSelling' => $SELLING,
             ]);
         }
         else
@@ -102,6 +108,11 @@ class SearchController extends Controller
             if(!empty($price))
             {
                 $query->where('title','>',$price)->get();
+            }
+
+            if(!empty($SELLING))
+            {
+                $query->where('status','1')->get();
             }
     
             $parent;
@@ -133,7 +144,7 @@ class SearchController extends Controller
             // var_dump($items);
             
             return view('search',[
-                'items' => $items,'categories' => $categories, 'keyword' => $keyword, 'k1_category' => $category, 'k2_category' => $category2, 'k3_category' => $category3, 'price' =>$price, 'isWish' => $WISH,
+                'items' => $items,'categories' => $categories, 'keyword' => $keyword, 'k1_category' => $category, 'k2_category' => $category2, 'k3_category' => $category3, 'price' =>$price, 'isWish' => $WISH, 'isSelling' => $SELLING,
             ]);
         }
     }

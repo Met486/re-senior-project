@@ -1,5 +1,8 @@
 @extends('layout')
 
+@section('styles')
+  <link rel="stylesheet" href="/css/home.css">
+@endsection
 
 @section('content')
   <div class="container">
@@ -24,7 +27,7 @@
   <div class="row row-cols-3 gx-10"><!--横３分割-->
           <div class="col-3 col text-center p-3 border"><!--カテゴリ-->
               <h4>カテゴリ</h4>
-              <ul class="nav flex-column">
+              {{-- <ul class="nav flex-column">
                 <li class="nav-item border">
                   <a class="nav-link active" aria-current="page" href="#">算数</a>
                 </li>
@@ -37,7 +40,15 @@
                 <li class="nav-item border">
                   <a class="nav-link" href="#">社会</a>
                 </li>
-              </ul>
+              </ul> --}}
+
+              @foreach ($categories as $category)
+                <ul class="nav flex-column">
+                  <li class="nav-item border">
+                    <a href="{{ route('search',['category' => $category->id]) }}" class="nav-link active" aria-current="page">{{ $category->name }}</a>
+                  </li>
+                </ul>
+              @endforeach
           </div><!--カテゴリ終-->
           
           <div class="col-6 bg-primary">
@@ -47,18 +58,22 @@
                   <div class="col-12">
                     <div class="p-3 border bg-primary">
                       新着
-                      <div class="row align-items-start border p-3">
-                        <div class="col-4 p-3 text-center">
-                          ここにカード
+                      <div class="row align-items-start border p-3 justify-content-center">
+                        @foreach($items as $item)
+                        <div class="col-12 card shadow-sm m-2">
+                          <a  href="{{ route('items.detail',['id' => $item->item_id]) }}">
+                            <img src="{{ asset( $item->path )}}" class="card-img-top image">
+                            <div class="card-body">
+                              <h5 class="card-title text-truncate">{{ $item->title }}
+                              </h5>
+                              <h5>{{ $item->price }}円</h5>
+                              {{-- <a href="{{ route('items.detail',['id' => $item->id]) }}" class="btn btn-primary">詳細</a> --}}
+                            </div>
+                          </a>
                         </div>
-                        <div class="col-4 p-3 text-center">
-                          ここにカード
-                        </div>
-                        <div class="col-4 p-3 text-center">
-                          ここにカード
-                        </div>
+                        @endforeach
                       </div>
-                      おすすめ
+                      {{-- おすすめ
                       <div class="row align-items-start border p-3">
                         <div class="col-4 p-3 text-center">
                           ここにカード
@@ -93,8 +108,8 @@
                         <div class="col-4 p-3 text-center">
                           ここにカード
                         </div>
-                      </div>
-                    </div>
+                      </div> --}}
+                    </div> 
                   </div>
                     <div class="p-6 bg-dark">
                       <div class="col-12">

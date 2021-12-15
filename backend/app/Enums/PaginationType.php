@@ -11,6 +11,8 @@ use BenSampo\Enum\Enum;
  */
 final class PaginationType extends Enum
 {
+    const Item3 = 3;
+    const Item4 = 4;
     const Item5 =   5;
     const Item10 =   10;
     const Item20 =   20;

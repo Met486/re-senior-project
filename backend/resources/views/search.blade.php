@@ -58,7 +58,7 @@
           <fieldset class="row mb-3 justify-content-center">
             <div class="col-sm-9">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="on_sail">
+                <input class="form-check-input" type="checkbox" id="on_sail" @if(strcmp($isSelling,"true") == 0){{"checked"}} @endif>
                 <label class="form-check-label" for="on_sail">
                   出品中のみ
                 </label>

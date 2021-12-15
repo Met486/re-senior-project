@@ -1,0 +1,15 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+// @import '~bootstrap/scss/bootstrap';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css');
+
+
+.card{
+    width: 22.5%;
+    background-color: white;
+  }
+
+  
+.image{
+    height: 150px;
+    object-fit: contain;  
+  }
