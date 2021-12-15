@@ -15,8 +15,10 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/search.js','public/js')
     .js('resources/js/layout.js','public/js')
     .js('resources/js/wish.js','public/js')
+    .js('resources/js/home.js','public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/styles.scss','public/css')
+    .sass('resources/sass/home.scss','public/css')
     .sourceMaps()
     .autoload({
         "jquery": ['$', 'window.jQuery'],
