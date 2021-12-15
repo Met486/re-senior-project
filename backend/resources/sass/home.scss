@@ -13,3 +13,13 @@
     height: 150px;
     object-fit: contain;  
   }
+
+  .multi-carousel {
+	opacity: 0;
+	padding: 0 25px;
+}
+.multi-carousel .carousel-control-next,
+.multi-carousel .carousel-control-prev {
+	width: 22.5%;
+	background: gray;    
+}

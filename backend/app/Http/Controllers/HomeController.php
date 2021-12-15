@@ -24,7 +24,9 @@ class HomeController extends Controller
         $query->join('item_photos','items.id', '=' ,'item_photos.item_id')->where('item_photos.index',0)->get();
 
 
-        $items = $query->orderBy('items.created_at','desc')->paginate(PaginationType::Item4);
+        $items = $query->orderBy('items.created_at','desc')->take(12)->paginate(PaginationType::Item4);
+        // $items = $query->orderBy('items.created_at','desc')->take(12)->get();
+        // $items = $query->orderBy('items.created_at','desc')->get();
         // 現状は完全一致のみ
         
         return view('home',[

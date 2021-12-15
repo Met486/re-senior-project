@@ -104,7 +104,8 @@
       <footer>
 
         <!--https://qumeru.com/magazine/193-->
-        <div class="container-fluid bg-primary sticky-top"><!--フッター-->
+        {{-- <div class="container-fluid bg-primary sticky-top"><!--フッター--> --}}
+        <div class="container-fluid bg-primary fixed-bottom"><!--修正後-->
           <div class="row g-3">
             <div class="col-6">
               <div class="p-3 text-center">コンテンツ</div>

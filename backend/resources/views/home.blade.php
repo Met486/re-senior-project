@@ -52,12 +52,15 @@
           </div><!--カテゴリ終-->
           
           <div class="col-6 bg-primary">
+
+
             <div class="col"><!--真ん中カラムの中にカード-->
               <div>
                 <div class="row gy-5">
                   <div class="col-12">
                     <div class="p-3 border bg-primary">
                       新着
+                      
                       <div class="row align-items-start border p-3 justify-content-center">
                         @foreach($items as $item)
                         <div class="col-12 card shadow-sm m-2">
@@ -111,6 +114,9 @@
                       </div> --}}
                     </div> 
                   </div>
+                  <div class="d-flex justify-content-center">  
+                    {{ $items->links() }}
+                  </div>
                     <div class="p-6 bg-dark">
                       <div class="col-12">
                     </div>
@@ -119,7 +125,7 @@
                 </div>
               </div>
             </div>
-            <nav class="d-flex justify-content-center" aria-label="Page navigation example"><!--ページネーション-->
+            {{-- <nav class="d-flex justify-content-center" aria-label="Page navigation example"><!--ページネーション-->
               <ul class="pagination">
                 <li class="page-item disabled">
                   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -131,7 +137,7 @@
                   <a class="page-link" href="#">Next</a>
                 </li>
               </ul>
-            </nav><!--ページネーション-->
+            </nav><!--ページネーション--> --}}
           </div>
 
           <div class="col-3 bg-light">
