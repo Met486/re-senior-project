@@ -109,15 +109,15 @@ class ItemController extends Controller
         $item = Item::find($id);
 
         $item->title = $request->title;
-        // $item->status = $request->status; // TODO 要修正
         $item->category = $request->category;
-        // $item->sub_category = $request->sub_category;
-        $item->isbn_13 = $request->isbn_13;
-        // $item->seller_id = 1; //TODO 暫定 ログインしているユーザに変更する
+        $item->isbn_13 = preg_replace('/[^0-9]/','',$request->isbn_13);
+        $item->scratches = $request->scratches;
+
         $item->seller_id = Auth::id();
+        $item->price = $request->price;
+
         $item->save();
         
-
         return redirect()->route('search');
     }
 
