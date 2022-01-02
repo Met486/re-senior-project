@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+
 use Illuminate\Validation\Rule;
 
 use App\Models\Item;
@@ -17,7 +18,7 @@ class EditItem extends SellItem
 
 
         return $rule + [
-            'status' => 'required|' . $status_rule,
+            // 'status' => 'required|' . $status_rule,
         ];
     }
 
@@ -34,14 +35,14 @@ class EditItem extends SellItem
     {
         $messages = parent::messages();
 
-        $status_labels = array_map(function($item){
+        $status_labels = array_map(function ($item) {
             return $item['label'];
         }, Item::STATUS);
 
         $status_labels = implode(', ', $status_labels);
 
         return $messages + [
-            'status.in' => ':attribute には ' . $status_labels. 'のいずれかを指定してください。',
+            'status.in' => ':attribute には ' . $status_labels . 'のいずれかを指定してください。',
         ];
     }
 }

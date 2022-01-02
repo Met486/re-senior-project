@@ -47,10 +47,14 @@ s1Category.onchange = function(){
         // $.each(res, function (index,data){
         //     // $('#sub_category').append($('<option>').text(data.name).attr('value',.id));
         //     $('#sub_category').append($('<option>').text(data.name).attr({ value: data.id}));
-            
+
         // });
-        
+
+        console.log('remove OK');
+
         $('#s2_category').append(testArr);
+
+        console.log('test Append ok');
 
         var arr = $.map(res, function(data){
             $option = $('<option>', { value: data.id, text:data.name});
@@ -58,6 +62,7 @@ s1Category.onchange = function(){
         });
         $('#s2_category').append(arr);
 
+        console.log(arr);
 
         // $.each(res, function (index, value){
         //  console.log(value.id + ":" + value.name);
@@ -97,24 +102,6 @@ isbn_13.addEventListener("change", function(){
 
     var bdUrl =  "https://api.openbd.jp/v1/get?isbn=" + isbn_13.value.replace( /[^0-9]/g, "");
 
-    // $.ajax({
-    //     // url: "https://api.openbd.jp/v1/get?isbn=9784492534434",
-    //     url: bdUrl,
-    //     data: {
-    //         zipcode: 97201
-    //     },
-    //     success: function( result ) {
-    //         // $( "#weather-temp" ).html( "<strong>" + result + "</strong> degrees" );
-    //         console.log(result);
-    //         console.log("type is " + typeof(result));
-    //         console.log(result[0].summary.title);
-    //         // const from_json = JSON.parse(result);
-    //         // console.log(from_json);
-    //         title.value = result[0].summary.title;
-    //         author.value = result[0].summary.author;
-    //     }
-    // });
-
     $.ajax({
         method: "GET",
         url: bdUrl,
@@ -134,7 +121,7 @@ isbn_13.addEventListener("change", function(){
             confirmDate.value = result[0].summary.pubdate;
             confirmPublisher.value = result[0].summary.publisher;
             confirmCover.src = result[0].summary.cover;
-            
+
             bookConfirm.style.display = "block";
             console.log("bookConfirm displayed");
         });
